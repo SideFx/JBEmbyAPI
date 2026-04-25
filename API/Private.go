@@ -304,7 +304,8 @@ func evalCodecs(media []MediaSourceInfo) (string, string) {
 }
 
 func evalTime(date time.Time) string {
-	return date.Format("02/01/2006")
+
+	return date.Format("2006-01-02") // ISO 8601 date format
 }
 
 func evalFileSize(filesize int64) string {
