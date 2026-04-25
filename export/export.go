@@ -1,3 +1,10 @@
+/////////////////////////////////////////////////////////////////////////////
+// Name:        Export.go
+// Purpose:     cgo export functions
+// Author:      Jan Buchholz
+// Created:     2026-04-16
+/////////////////////////////////////////////////////////////////////////////
+
 package main
 
 /*
@@ -111,5 +118,3 @@ func init() {
 }
 
 func main() {}
-
-// Build Windows: go build -buildmode=c-shared -o jbembyapi.dll JBEmbyAPI.go

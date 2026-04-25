@@ -1,8 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////
+// Name:        Emby.go
+// Purpose:     Emby types based on Emby SDK v4.9.3.0
+// Author:      Jan Buchholz
+// Created:     2025-10-13
+/////////////////////////////////////////////////////////////////////////////
+
 package API
 
 import "time"
-
-// Based on Emby SDK v4.9.3.0
 
 // UserDto (simplified)
 type UserDto struct {
@@ -301,8 +306,4 @@ const (
 	ActorPersonType     string = "Actor"
 	GuestStarPersonType string = "GuestStar"
 	DirectorPersonType  string = "Director"
-)
-
-const (
-	PrimaryImageType string = "Primary"
 )

@@ -1,7 +1,21 @@
+/////////////////////////////////////////////////////////////////////////////
+// Name:        parser.hpp
+// Purpose:     Json parser and data definitions
+// Author:      Jan Buchholz (Header was mainly created by Copilot)
+// Created:     2026-04-24
+/////////////////////////////////////////////////////////////////////////////
+
 #pragma once
 
 #include "json.hpp"
 using json = nlohmann::json;
+
+// Supported collections (user views)
+constexpr std::string_view CollectionMovies = "movies";
+constexpr std::string_view CollectionSeries = "tvshows";
+constexpr std::string_view CollectionHomeVideos = "homevideos";
+constexpr std::string_view CollectionMusic = "music";
+constexpr std::string_view CollectionMusicVideos = "musicvideos";
 
 struct EmbyLogonResult {
     std::string baseUrl;

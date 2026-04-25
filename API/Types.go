@@ -1,3 +1,10 @@
+/////////////////////////////////////////////////////////////////////////////
+// Name:        Types.go
+// Purpose:     Data types for JBEmbyAPI
+// Author:      Jan Buchholz
+// Created:     2026-04-13
+/////////////////////////////////////////////////////////////////////////////
+
 package API
 
 import "net/http"
@@ -32,7 +39,6 @@ type EmbyLogonResultExp struct {
 	Result  ErrorStruct `json:"Result"`
 }
 
-// UserView Emby views for current user
 type UserView struct {
 	Name           string `json:"Name"`
 	CollectionType string `json:"CollectionType"`

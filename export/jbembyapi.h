@@ -21,7 +21,7 @@ extern const char *_GoStringPtr(_GoString_ s);
 /* Start of preamble from import "C" comments.  */
 
 
-#line 3 "export.go"
+#line 10 "export.go"
 
 #include <stdlib.h>
 #include <stdbool.h>
