@@ -15,7 +15,7 @@ std::unordered_map<std::string, std::string> parseArgs(int argc, char* argv[]) {
     std::unordered_map<std::string, std::string> args;
     for (int i = 1; i < argc; ++i) {
         std::string a = argv[i];
-        if (a.rfind("-", 0) == 0) { // parameters start with '-'
+        if (a.rfind('-', 0) == 0) { // parameters start with '-'
             auto eq = a.find('=');
             if (eq != std::string::npos) {
                 std::string key = a.substr(1, eq - 1);
@@ -86,70 +86,70 @@ int main(int argc, char* argv[]) {
         if (item.collectionType == CollectionMovies) {
             raw = lib.UserGetMovies(login.baseUrl, item.id, login.userId, login.accessToken);
             MoviesDataImp moviesImp = parseMovies(raw);
-            if (moviesImp.code != 0) {
+            if (moviesImp.code == 0) {
+                // Movies: moviesImp.movies.tMovieData
+                for (auto& m : moviesImp.movies.tMovieData) {
+                    std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                }
+            } else {
                 std::cout << "Error: " << moviesImp.message << "\n";
-                exit(4);
-            }
-            // Movies: moviesImp.movies.tMovieData
-            for (auto& m : moviesImp.movies.tMovieData) {
-                std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
             }
             continue;
         }
         if (item.collectionType == CollectionSeries) {
             raw = lib.UserGetSeries(login.baseUrl, item.id, login.userId, login.accessToken);
             SeriesDataImp seriesImp = parseSeries(raw);
-            if (seriesImp.code != 0) {
+            if (seriesImp.code == 0) {
+                // Series: seriesImp.series.tSeriesData
+                // Seasons: seriesImp.series.tSeasonData
+                // Episodes: seriesImp.series.tEpisodeData
+                for (auto& s : seriesImp.series.tSeriesData) {
+                    std::cout << s.name << " " << s.addedAt << "\n";
+                }
+            } else {
                 std::cout << "Error: " << seriesImp.message << "\n";
-                exit(5);
-            }
-            // Series: seriesImp.series.tSeriesData
-            // Seasons: seriesImp.series.tSeasonData
-            // Episodes: seriesImp.series.tEpisodeData
-            for (auto& s : seriesImp.series.tSeriesData) {
-                std::cout << s.name << " " << s.addedAt << "\n";
             }
             continue;
         }
         if (item.collectionType == CollectionHomeVideos) {
             raw = lib.UserGetHomeVideos(login.baseUrl, item.id, login.userId, login.accessToken);
             HomeVideosDataImp homeVideosImp = parseHomeVideos(raw);
-            if (homeVideosImp.code != 0) {
+            if (homeVideosImp.code == 0) {
+                // HomeVideos: homeVideosImp.homeVideos.tHomeVideoData
+                // Folders: homeVideosImp.homeVideos.tFolderData
+                for (auto& h : homeVideosImp.homeVideos.tHomeVideoData) {
+                    std::cout << h.name << " " << h.addedAt << " " << h.fileName << "\n";
+                }
+            } else {
                 std::cout << "Error: " << homeVideosImp.message << "\n";
-                exit(6);
-            }
-            // HomeVideos: homeVideosImp.homeVideos.tHomeVideoData
-            // Folders: homeVideosImp.homeVideos.tFolderData
-            for (auto& h : homeVideosImp.homeVideos.tHomeVideoData) {
-                std::cout << h.name << " " << h.addedAt << " " << h.fileName << "\n";
             }
             continue;
         }
         if (item.collectionType == CollectionMusicVideos) {
             raw = lib.UserGetMusicVideos(login.baseUrl, item.id, login.userId, login.accessToken);
             MusicVideosDataImp musicVideosImp = parseMusicVideos(raw);
-            if (musicVideosImp.code != 0) {
+            if (musicVideosImp.code == 0) {
+                // MusicVideos: musicVideosImp.musicVideos.tMusicVideoData
+                // Folders: musicVideosImp.musicVideos.tFolderData
+                for (auto& m : musicVideosImp.musicVideos.tMusicVideoData) {
+                    std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                }
+            } else {
                 std::cout << "Error: " << musicVideosImp.message << "\n";
-                exit(7);
-            }
-            // MusicVideos: musicVideosImp.musicVideos.tMusicVideoData
-            // Folders: musicVideosImp.musicVideos.tFolderData
-            for (auto& m : musicVideosImp.musicVideos.tMusicVideoData) {
-                std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
             }
             continue;
         }
         if (item.collectionType == CollectionMusic) {
             raw = lib.UserGetMusic(login.baseUrl, item.id, login.userId, login.accessToken);
             MusicDataImp musicImp = parseMusic(raw);
-            if (musicImp.code != 0) {
+            if (musicImp.code == 0) {
+                // Albums: musicImp.music.tAlbumData
+                // Titles: musicImp.music.tAudioData
+                for (auto& m : musicImp.music.tAlbumData) {
+                    std::cout << m.name << " " << m.addedAt << "\n";
+                }
+            } else {
                 std::cout << "Error: " << musicImp.message << "\n";
-                exit(8);
-            }
-            // Albums: musicImp.music.tAlbumData
-            // Titles: musicImp.music.tAudioData
-            for (auto& m : musicImp.music.tAlbumData) {
-                std::cout << m.name << " " << m.addedAt << "\n";
             }
         }
     }

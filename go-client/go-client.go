@@ -131,7 +131,6 @@ func main() {
 			} else {
 				fmt.Println(music.Result.Message)
 			}
-			break
 		}
 	}
 }

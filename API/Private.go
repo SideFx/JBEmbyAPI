@@ -281,6 +281,9 @@ func evalRuntime(ticks int64) string {
 		b.WriteByte('h')
 	}
 	if minutes > 0 {
+		if hours > 0 {
+			b.WriteByte(' ')
+		}
 		b.WriteString(strconv.Itoa(int(minutes)))
 		b.WriteString("min")
 	}
