@@ -3,6 +3,7 @@
 // Purpose:     Constants for JBEmbyAPI (REST API)
 // Author:      Jan Buchholz
 // Created:     2026-04-13
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -29,7 +30,7 @@ const (
 	paraMaxWidth         = "MaxWidth="
 	paraMaxHeight        = "MaxHeight="
 	paraImageTag         = "tag="
-	apiKey               = "api_key="
+	paraApiKey           = "api_key="
 )
 
 // Parameters for the Authentication Request Header
@@ -41,7 +42,7 @@ const (
 	authKeyDevice   = "Device"
 	authKeyDeviceId = "DeviceId"
 	authKeyVersion  = "Version"
-	client          = "EmbyExplorer"
+	authClient      = "EmbyExplorer"
 )
 
 // REST Endpoints
@@ -71,16 +72,15 @@ var SupportedCollectionTypes = []string{
 }
 
 const (
-	VideoType       = "Video"
-	SeriesType      = "Series"
-	SeasonType      = "Season"
-	EpisodeType     = "Episode"
-	MovieType       = "Movie"
-	FolderType      = "Folder"
-	AudioType       = "Audio"
-	MusicVideoType  = "MusicVideo"
-	MusicAlbumType  = "MusicAlbum"
-	MusicArtistType = "MusicArtist"
+	VideoType      = "Video"
+	SeriesType     = "Series"
+	SeasonType     = "Season"
+	EpisodeType    = "Episode"
+	MovieType      = "Movie"
+	FolderType     = "Folder"
+	AudioType      = "Audio"
+	MusicVideoType = "MusicVideo"
+	MusicAlbumType = "MusicAlbum"
 )
 
 const (

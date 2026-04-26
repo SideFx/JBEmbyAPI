@@ -41,7 +41,7 @@ func UserGetViews(baseurl string, userid string, accesstoken string) UserViewsEx
 	p := rESTParams[QueryResultBaseItemDto]{}
 	p.url = baseurl + getUserViews
 	p.url = strings.Replace(p.url, "&1", userid, 1)
-	p.url += "?" + apiKey + accesstoken
+	p.url += "?" + paraApiKey + accesstoken
 	p.genericHttpGet()
 	if p.error.Code != NoErrorConst {
 		views.Result = p.error
@@ -394,7 +394,7 @@ func GetPrimaryImageForItem(baseurl string, itemid string, format string, imaget
 	img := ItemImageExp{}
 	url := baseurl + getPrimaryImage
 	url = strings.Replace(url, "&1", itemid, 1)
-	url += "?" + apiKey + accesstoken
+	url += "?" + paraApiKey + accesstoken
 	if format == ImageFormatBmp || format == ImageFormatGif || format == ImageFormatJpp || format == ImageFormatPng {
 		url += "&" + paraFormat + string(format)
 	}

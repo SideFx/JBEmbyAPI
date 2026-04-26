@@ -111,7 +111,7 @@ func userGetItems(baseurl string, collectionid string,
 	p := rESTParams[QueryResultBaseItemDto]{}
 	p.url = baseurl + getUserItems
 	p.url = strings.Replace(p.url, "&1", userid, 1)
-	p.url += "?" + apiKey + accesstoken
+	p.url += "?" + paraApiKey + accesstoken
 	p.url += "&" + paraRecursive + "true"
 	p.url += "&" + paraParentId + collectionid
 	p.url += "&" + paraIncludeItemTypes + getIncludeItemTypes(collectiontype)
@@ -187,7 +187,7 @@ func createHeader(userid string) string {
 	host, _ := os.Hostname()
 	h = authType + " " +
 		createPair(authKeyUserId, userid) + ", " +
-		createPair(authKeyClient, client) + ", " +
+		createPair(authKeyClient, authClient) + ", " +
 		createPair(authKeyDevice, runtime.GOOS) + ", " +
 		createPair(authKeyDeviceId, host) + ", " +
 		createPair(authKeyVersion, "1.0.0.0")
