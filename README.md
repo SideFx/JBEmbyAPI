@@ -6,7 +6,7 @@ The project provides a native Go API as well as a C‑compatible shared library 
 📦 **Features**
 
 **Supported Media Types:**
-- Movies
+- Movies (Movies, Folders)
 - Series  (Series, Seasons, Episodes)
 - Home Videos  (Videos, Folders)
 - Music Videos  (Videos, Folders)
