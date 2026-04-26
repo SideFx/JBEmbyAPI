@@ -3,6 +3,7 @@
 // Purpose:     Demo console application for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package main
@@ -31,6 +32,7 @@ func main() {
 	if *useHttps {
 		protocol = "https"
 	}
+	API.SendNetworkBroadcast() // should normally be called during UI init
 	baseUrl := fmt.Sprintf("%s://%s:%s", protocol, *host, *port)
 	fmt.Println("Connecting to:", baseUrl)
 	login := API.UserLoginToServer(
@@ -76,6 +78,9 @@ func main() {
 				for _, m := range movies.Movies.TMovieData {
 					fmt.Println(m.Name, m.AddedAt, m.FileName)
 				}
+				for _, f := range movies.Movies.TFolderData {
+					fmt.Println("FOLDER:", f.Name, f.FolderId)
+				}
 			} else {
 				fmt.Println(movies.Result.Message)
 			}
@@ -102,6 +107,9 @@ func main() {
 				for _, video := range videos.HomeVideos.THomeVideoData {
 					fmt.Println(video.Name, video.AddedAt, video.FileName)
 				}
+				for _, f := range videos.HomeVideos.TFolderData {
+					fmt.Println("FOLDER:", f.Name, f.FolderId)
+				}
 			} else {
 				fmt.Println(videos.Result.Message)
 			}
@@ -114,6 +122,9 @@ func main() {
 			if videos.Result.Code == API.NoErrorConst {
 				for _, v := range videos.MusicVideos.TMusicVideoData {
 					fmt.Println(v.Name, v.AddedAt, v.FileName)
+				}
+				for _, f := range videos.MusicVideos.TFolderData {
+					fmt.Println("FOLDER:", f.Name, f.FolderId)
 				}
 			} else {
 				fmt.Println(videos.Result.Message)

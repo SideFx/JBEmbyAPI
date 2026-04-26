@@ -3,6 +3,7 @@
 // Purpose:     Data types for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -12,6 +13,11 @@ type DataDescription[T any] struct {
 	IncludeItemTypes []string
 	APIFields        []string
 	Data             T
+}
+
+type FolderDataInc struct {
+	Name     string `json:"Name"`
+	FolderId string `json:"FolderId"`
 }
 
 type MovieDataInc struct {
@@ -36,18 +42,20 @@ type MovieDataInc struct {
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
 	TheMovieDBId    string   `json:"TheMovieDbId"`
+	FolderId        string   `json:"FolderId"`
 	MovieId         string   `json:"MovieId"`
 }
 type MovieData struct {
-	TMovieData []MovieDataInc `json:"MovieData"`
+	TMovieData  []MovieDataInc  `json:"MovieData"`
+	TFolderData []FolderDataInc `json:"FolderData"`
 }
 
 var MovieTable = DataDescription[MovieData]{
 	CollectionMovies,
-	[]string{MovieType},
+	[]string{MovieType, FolderType},
 	[]string{"Name", "OriginalTitle", "MediaSources", "FileName", "Genres", "ProductionYear",
 		"People", "Studios", "Width", "Height", "Container", "DateCreated", "Overview", "RunTimeTicks",
-		"Id", "Type", "ProviderIds"},
+		"Id", "ParentId", "Type", "ProviderIds"},
 	MovieData{},
 }
 
@@ -142,11 +150,6 @@ type HomeVideoDataInc struct {
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	FolderId        string   `json:"FolderId"`
 	VideoId         string   `json:"VideoId"`
-}
-
-type FolderDataInc struct {
-	Name     string `json:"Name"`
-	FolderId string `json:"FolderId"`
 }
 
 type HomeVideoData struct {

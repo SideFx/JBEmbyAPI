@@ -3,6 +3,7 @@
 // Purpose:     Private functions
 // Author:      Jan Buchholz
 // Created:     2025-04-15
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -16,6 +17,7 @@ import (
 	"net/http"
 	"os"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"time"
@@ -346,4 +348,10 @@ func evalBitrate(bitrate int32) string {
 	default:
 		return fmt.Sprintf("%.2f Gbps", b/G)
 	}
+}
+
+func sortFoldersByNameCI(folders []FolderDataInc) {
+	sort.Slice(folders, func(i, j int) bool {
+		return strings.ToLower(folders[i].Name) < strings.ToLower(folders[j].Name)
+	})
 }

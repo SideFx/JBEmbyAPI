@@ -3,6 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -12,6 +13,7 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 )
 
 func UserLoginToServer(secure bool, hostname string, port string, username string, password string) EmbyLogonResultExp {
@@ -72,36 +74,47 @@ func UserGetMovies(baseurl string, collectionid string, userid string, accesstok
 		return MoviesDataExp{MovieData{}, items.Result}
 	}
 	for _, item := range items.Items {
-		var movie MovieDataInc
-		movie.Name = item.Name
-		movie.MovieId = item.Id
-		movie.OriginalTitle = item.OriginalTitle
-		movie.ProductionYear = strconv.Itoa(int(item.ProductionYear))
-		movie.Studios = evalNameLongIdPairs(item.Studios)
-		movie.Actors = evalPersons(item.People, ActorPersonType, GuestStarPersonType)
-		movie.Directors = evalPersons(item.People, DirectorPersonType)
-		movie.Genres = evalNameLongIdPairs(item.GenreItems)
-		movie.Container = item.Container
-		movie.AudioCodec, movie.VideoCodec = evalCodecs(item.MediaSources)
-		movie.Resolution = evalResolution(item.Width, item.Height)
-		movie.Bitrate = evalBitrate(item.Bitrate)
-		movie.Runtime = evalRuntime(item.RunTimeTicks)
-		movie.AddedAt = evalTime(item.DateCreated)
-		movie.PrimaryImageId = item.PrimaryImageItemId
-		if movie.PrimaryImageId == "" {
-			movie.PrimaryImageId = item.Id
+		switch item.Type {
+		case MovieType:
+			var movie MovieDataInc
+			movie.Name = item.Name
+			movie.MovieId = item.Id
+			movie.OriginalTitle = item.OriginalTitle
+			movie.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			movie.Studios = evalNameLongIdPairs(item.Studios)
+			movie.Actors = evalPersons(item.People, ActorPersonType, GuestStarPersonType)
+			movie.Directors = evalPersons(item.People, DirectorPersonType)
+			movie.Genres = evalNameLongIdPairs(item.GenreItems)
+			movie.Container = item.Container
+			movie.AudioCodec, movie.VideoCodec = evalCodecs(item.MediaSources)
+			movie.Resolution = evalResolution(item.Width, item.Height)
+			movie.Bitrate = evalBitrate(item.Bitrate)
+			movie.Runtime = evalRuntime(item.RunTimeTicks)
+			movie.AddedAt = evalTime(item.DateCreated)
+			movie.PrimaryImageId = item.PrimaryImageItemId
+			if movie.PrimaryImageId == "" {
+				movie.PrimaryImageId = item.Id
+			}
+			movie.PrimaryImageTag = item.PrimaryImageTag
+			if movie.PrimaryImageTag == "" {
+				movie.PrimaryImageTag = item.ImageTags[PrimaryImage]
+			}
+			movie.FolderId = item.ParentId
+			movie.FileSize = evalFileSize(item.Size)
+			movie.FileName = item.FileName
+			movie.Overview = item.Overview
+			movie.ImDBId = item.ProviderIds[ImDb]
+			movie.TheMovieDBId = item.ProviderIds[TheMovieDb]
+			MovieTable.Data.TMovieData = append(MovieTable.Data.TMovieData, movie)
+		case FolderType:
+			folder := FolderDataInc{}
+			folder.Name = item.Name
+			folder.FolderId = item.Id
+			MovieTable.Data.TFolderData = append(MovieTable.Data.TFolderData, folder)
+			break
 		}
-		movie.PrimaryImageTag = item.PrimaryImageTag
-		if movie.PrimaryImageTag == "" {
-			movie.PrimaryImageTag = item.ImageTags[PrimaryImage]
-		}
-		movie.FileSize = evalFileSize(item.Size)
-		movie.FileName = item.FileName
-		movie.Overview = item.Overview
-		movie.ImDBId = item.ProviderIds[ImDb]
-		movie.TheMovieDBId = item.ProviderIds[TheMovieDb]
-		MovieTable.Data.TMovieData = append(MovieTable.Data.TMovieData, movie)
 	}
+	sortFoldersByNameCI(MovieTable.Data.TFolderData)
 	return MoviesDataExp{MovieTable.Data, NoError}
 }
 
@@ -244,6 +257,7 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 			break
 		}
 	}
+	sortFoldersByNameCI(HomeVideoTable.Data.TFolderData)
 	return HomeVideosDataExp{HomeVideoTable.Data, NoError}
 }
 
@@ -293,6 +307,7 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			break
 		}
 	}
+	sortFoldersByNameCI(MusicVideoTable.Data.TFolderData)
 	return MusicVideosDataExp{MusicVideoTable.Data, NoError}
 }
 
@@ -408,6 +423,11 @@ func GetPrimaryImageForItem(baseurl string, itemid string, format string, imaget
 	return img
 }
 
-func Init() {
-	sendNetworkBroadcast()
+func SendNetworkBroadcast() {
+	go func() {
+		for i := 0; i < 3; i++ {
+			sendNetworkBroadcast()
+			time.Sleep(1 * time.Second)
+		}
+	}()
 }

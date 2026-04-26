@@ -2,7 +2,8 @@
 // Name:        main.cpp
 // Purpose:     Demo console application for JBEmbyAPI
 // Author:      Jan Buchholz
-// Created:     2025-04-21
+// Created:     2026-04-21
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -47,6 +48,7 @@ int main(int argc, char* argv[]) {
         std::cout << "  app -https=true|false -host=<host> -port=<port> -user=<username> -pass=<password>\n";
         return 1;
     }
+    lib.SendNetworkBroadcast(); // should normally be called during UI init
     bool useHttps = (args["https"] == "true");
     std::string host = args["host"];
     std::string port = args["port"];
@@ -88,8 +90,12 @@ int main(int argc, char* argv[]) {
             MoviesDataImp moviesImp = parseMovies(raw);
             if (moviesImp.code == 0) {
                 // Movies: moviesImp.movies.tMovieData
+                // Folders: moviesImp.movies.tFolderData
                 for (auto& m : moviesImp.movies.tMovieData) {
                     std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                }
+                for (auto& f : moviesImp.movies.tFolderData) {
+                    std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
                 }
             } else {
                 std::cout << "Error: " << moviesImp.message << "\n";
@@ -120,6 +126,9 @@ int main(int argc, char* argv[]) {
                 for (auto& h : homeVideosImp.homeVideos.tHomeVideoData) {
                     std::cout << h.name << " " << h.addedAt << " " << h.fileName << "\n";
                 }
+                for (auto& f : homeVideosImp.homeVideos.tFolderData) {
+                    std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
+                }
             } else {
                 std::cout << "Error: " << homeVideosImp.message << "\n";
             }
@@ -133,6 +142,9 @@ int main(int argc, char* argv[]) {
                 // Folders: musicVideosImp.musicVideos.tFolderData
                 for (auto& m : musicVideosImp.musicVideos.tMusicVideoData) {
                     std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                }
+                for (auto& f : musicVideosImp.musicVideos.tFolderData) {
+                    std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
                 }
             } else {
                 std::cout << "Error: " << musicVideosImp.message << "\n";

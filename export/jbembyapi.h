@@ -21,7 +21,7 @@ extern const char *_GoStringPtr(_GoString_ s);
 /* Start of preamble from import "C" comments.  */
 
 
-#line 10 "export.go"
+#line 11 "export.go"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -88,6 +88,7 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
+extern void SendNetworkBroadcast(void);
 extern char* UserLoginToEmbyServer(_Bool secure, char* hostname, char* port, char* username, char* password);
 extern char* UserGetViews(char* baseurl, char* userid, char* accesstoken);
 extern char* UserGetMovies(char* baseurl, char* collectionid, char* userid, char* accesstoken);

@@ -49,3 +49,10 @@ For the excellent single‑header JSON library json.hpp.
 - Microsoft Copilot  
 For assisting with generating the C++ data structures from the Go DTOs,
 creating the C++ JSON parser functions, and producing the template for loading the Go shared library from C++.
+
+#### Updates
+
+**2026-04-26:**
+- Added a `SendNetworkBroadcast` function to trigger the macOS local network permission popup. This function should be called during UI initialization from the host application (currently untested, as no UI exists yet).
+- Added FolderData support for Movies.
+- Added automatic pre‑sorting of all folder lists by name.

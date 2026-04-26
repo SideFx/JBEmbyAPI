@@ -3,6 +3,7 @@
 // Purpose:     cgo export functions
 // Author:      Jan Buchholz
 // Created:     2026-04-16
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 package main
@@ -17,6 +18,11 @@ import (
 	"encoding/json"
 	"unsafe"
 )
+
+//export SendNetworkBroadcast
+func SendNetworkBroadcast() {
+	API.SendNetworkBroadcast()
+}
 
 //export UserLoginToEmbyServer
 func UserLoginToEmbyServer(secure C.bool, hostname *C.char, port *C.char,
@@ -111,10 +117,6 @@ func FreeString(str *C.char) {
 func jsonReturnResult(result any) string {
 	jsonBytes, _ := json.Marshal(result)
 	return string(jsonBytes)
-}
-
-func init() {
-	API.Init()
 }
 
 func main() {}

@@ -3,6 +3,7 @@
 // Purpose:     C++ function import (load library)
 // Author:      Jan Buchholz
 // Created:     2026-04-20
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -26,6 +27,7 @@
 
 class GoLib {
 public:
+    using SendNetworkBroadcastFunc = void (*)();
     using UserLoginToEmbyServerFunc = char* (*)(bool, char*, char*, char*, char*);
     using UserGetViewsFunc = char* (*)(char*, char*, char*);
     using UserGetMoviesFunc = char* (*)(char*, char*, char*, char*);
@@ -43,6 +45,9 @@ public:
             std::cerr << "Failed to load library: " << name << "\n";
             return false;
         }
+        sendNetworkBroadcast = reinterpret_cast<SendNetworkBroadcastFunc>(
+            GET_SYM(handle, "SendNetworkBroadcast")
+        );
         userLoginToEmbyServer = reinterpret_cast<UserLoginToEmbyServerFunc>(
             GET_SYM(handle, "UserLoginToEmbyServer")
         );
@@ -70,6 +75,10 @@ public:
         freeString = reinterpret_cast<FreeStringFunc>(
             GET_SYM(handle, "FreeString")
         );
+        if (!sendNetworkBroadcast) {
+            std::cerr << "Failed to load function <SendNetworkBroadcast>!\n";
+            return false;
+        }
         if (!userLoginToEmbyServer) {
             std::cerr << "Failed to load function <UserLoginToEmbyServer>!\n";
             return false;
@@ -107,6 +116,9 @@ public:
             return false;
         }
         return true;
+    }
+    void SendNetworkBroadcast() const {
+        sendNetworkBroadcast();
     }
     [[nodiscard]] std::string UserLoginToEmbyServer(const bool secure, const std::string& host,
         const std::string& port, const std::string& username, const std::string& password) const {
@@ -226,6 +238,7 @@ public:
     }
 private:
     LibHandle handle = nullptr;
+    SendNetworkBroadcastFunc sendNetworkBroadcast = nullptr;
     UserLoginToEmbyServerFunc userLoginToEmbyServer = nullptr;
     UserGetViewsFunc userGetViews = nullptr;
     UserGetMoviesFunc userGetMovies = nullptr;

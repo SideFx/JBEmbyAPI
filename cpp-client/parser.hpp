@@ -3,6 +3,7 @@
 // Purpose:     Json parser and data definitions
 // Author:      Jan Buchholz (Header was mainly created by Copilot)
 // Created:     2026-04-24
+// Last update: 2026-04-26
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -68,6 +69,11 @@ inline UserViewsResult parseUserViews(const std::string& raw) {
     return r;
 }
 
+struct FolderDataInc {
+    std::string name;
+    std::string folderId;
+};
+
 struct MovieDataInc {
     std::string name;
     std::string originalTitle;
@@ -90,11 +96,13 @@ struct MovieDataInc {
     std::string primaryImageTag;
     std::string imDbId;
     std::string theMovieDbId;
+    std::string folderId;
     std::string movieId;
 };
 
 struct MovieData {
     std::vector<MovieDataInc> tMovieData;
+    std::vector<FolderDataInc> tFolderData;
 };
 
 struct MoviesDataImp {
@@ -135,8 +143,16 @@ inline MoviesDataImp parseMovies(const std::string& raw) {
         md.primaryImageTag = m["PrimaryImageTag"].get<std::string>();
         md.imDbId          = m["ImdbId"].get<std::string>();
         md.theMovieDbId    = m["TheMovieDbId"].get<std::string>();
+        md.folderId        = m["FolderId"].get<std::string>();
         md.movieId         = m["MovieId"].get<std::string>();
         r.movies.tMovieData.push_back(std::move(md));
+    }
+    // --- FolderData ---
+    for (auto& f : j["Movies"]["FolderData"]) {
+        FolderDataInc fd;
+        fd.name     = f["Name"].get<std::string>();
+        fd.folderId = f["FolderId"].get<std::string>();
+        r.movies.tFolderData.push_back(std::move(fd));
     }
     return r;
 }
@@ -304,11 +320,6 @@ struct HomeVideoDataInc {
     std::string primaryImageTag;
     std::string folderId;
     std::string videoId;
-};
-
-struct FolderDataInc {
-    std::string name;
-    std::string folderId;
 };
 
 struct HomeVideoData {
