@@ -3,7 +3,7 @@
 // Purpose:     C++ function import (load library)
 // Author:      Jan Buchholz
 // Created:     2026-04-20
-// Last update: 2026-04-26
+// Last update: 2026-04-27
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -17,6 +17,13 @@
     #define LOAD_LIB(name) LoadLibraryA(name)
     #define GET_SYM(lib, name) GetProcAddress((HMODULE)lib, name)
     #define LIB_NAME "jbembyapi.dll"
+#elif defined(__APPLE__)
+    #include <dlfcn.h>
+    using LibHandle = void*;
+    #define LOAD_LIB(name) dlopen(name, RTLD_LAZY)
+    #define GET_SYM(lib, name) dlsym(lib, name)
+    #define CLOSE_LIB(lib) dlclose(lib)
+    #define LIB_NAME "libjbembyapi.dylib"
 #else
     #include <dlfcn.h>
     using LibHandle = void*;
