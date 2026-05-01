@@ -350,8 +350,8 @@ func evalBitrate(bitrate int32) string {
 	}
 }
 
-func sortFoldersByNameCI(folders []FolderDataInc) {
+func sortFoldersById(folders []FolderDataInc) {
 	sort.Slice(folders, func(i, j int) bool {
-		return strings.ToLower(folders[i].Name) < strings.ToLower(folders[j].Name)
+		return folders[i].FolderId < folders[j].FolderId
 	})
 }

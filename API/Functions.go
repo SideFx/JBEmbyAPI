@@ -114,7 +114,7 @@ func UserGetMovies(baseurl string, collectionid string, userid string, accesstok
 			break
 		}
 	}
-	sortFoldersByNameCI(MovieTable.Data.TFolderData)
+	sortFoldersById(MovieTable.Data.TFolderData)
 	return MoviesDataExp{MovieTable.Data, NoError}
 }
 
@@ -257,7 +257,7 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 			break
 		}
 	}
-	sortFoldersByNameCI(HomeVideoTable.Data.TFolderData)
+	sortFoldersById(HomeVideoTable.Data.TFolderData)
 	return HomeVideosDataExp{HomeVideoTable.Data, NoError}
 }
 
@@ -307,7 +307,7 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			break
 		}
 	}
-	sortFoldersByNameCI(MusicVideoTable.Data.TFolderData)
+	sortFoldersById(MusicVideoTable.Data.TFolderData)
 	return MusicVideosDataExp{MusicVideoTable.Data, NoError}
 }
 
