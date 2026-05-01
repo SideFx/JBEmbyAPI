@@ -3,7 +3,7 @@
 // Purpose:     Demo console application for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-04-26
+// Last update: 2026-05-01
 /////////////////////////////////////////////////////////////////////////////
 
 package main
@@ -76,7 +76,14 @@ func main() {
 				login.Session.AccessToken)
 			if movies.Result.Code == API.NoErrorConst {
 				for _, m := range movies.Movies.TMovieData {
-					fmt.Println(m.Name, m.AddedAt, m.FileName)
+					fmt.Println("Name: ", m.Name,
+						"Year: ", m.ProductionYear,
+						"Runtime: ", m.Runtime,
+						"Width: ", m.Width,
+						"Height: ", m.Height,
+						"Bitrate: ", m.Bitrate,
+						"Filesize: ", m.FileSize,
+						"AdddedAt: ", m.AddedAt)
 				}
 				for _, f := range movies.Movies.TFolderData {
 					fmt.Println("FOLDER:", f.Name, f.FolderId)
@@ -136,8 +143,8 @@ func main() {
 				login.Session.UserId,
 				login.Session.AccessToken)
 			if music.Result.Code == API.NoErrorConst {
-				for _, m := range music.Music.TAlbumData {
-					fmt.Println(m.Name, m.AddedAt)
+				for _, m := range music.Music.TAudioData {
+					fmt.Println(m.Name, m.Bitrate)
 				}
 			} else {
 				fmt.Println(music.Result.Message)

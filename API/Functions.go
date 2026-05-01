@@ -3,12 +3,13 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-04-26
+// Last update: 2026-05-01
 /////////////////////////////////////////////////////////////////////////////
 
 package API
 
 import (
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -80,17 +81,18 @@ func UserGetMovies(baseurl string, collectionid string, userid string, accesstok
 			movie.Name = item.Name
 			movie.MovieId = item.Id
 			movie.OriginalTitle = item.OriginalTitle
-			movie.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			movie.ProductionYear = item.ProductionYear
 			movie.Studios = evalNameLongIdPairs(item.Studios)
 			movie.Actors = evalPersons(item.People, ActorPersonType, GuestStarPersonType)
 			movie.Directors = evalPersons(item.People, DirectorPersonType)
 			movie.Genres = evalNameLongIdPairs(item.GenreItems)
 			movie.Container = item.Container
 			movie.AudioCodec, movie.VideoCodec = evalCodecs(item.MediaSources)
-			movie.Resolution = evalResolution(item.Width, item.Height)
-			movie.Bitrate = evalBitrate(item.Bitrate)
-			movie.Runtime = evalRuntime(item.RunTimeTicks)
-			movie.AddedAt = evalTime(item.DateCreated)
+			movie.Width = item.Width
+			movie.Height = item.Height
+			movie.Bitrate = item.Bitrate
+			movie.Runtime = item.RunTimeTicks
+			movie.AddedAt = item.DateCreated.Unix()
 			movie.PrimaryImageId = item.PrimaryImageItemId
 			if movie.PrimaryImageId == "" {
 				movie.PrimaryImageId = item.Id
@@ -100,7 +102,7 @@ func UserGetMovies(baseurl string, collectionid string, userid string, accesstok
 				movie.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
 			movie.FolderId = item.ParentId
-			movie.FileSize = evalFileSize(item.Size)
+			movie.FileSize = item.Size
 			movie.FileName = item.FileName
 			movie.Overview = item.Overview
 			movie.ImDBId = item.ProviderIds[ImDb]
@@ -134,13 +136,13 @@ func UserGetSeries(baseurl string, collectionid string, userid string, accesstok
 			series := SeriesDataInc{}
 			series.Name = item.Name
 			series.OriginalTitle = item.OriginalTitle
-			series.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			series.ProductionYear = item.ProductionYear
 			series.Actors = evalPersons(item.People, ActorPersonType, GuestStarPersonType)
 			series.Directors = evalPersons(item.People, DirectorPersonType)
 			series.Genres = evalNameLongIdPairs(item.GenreItems)
 			series.Studios = evalNameLongIdPairs(item.Studios)
 			series.Overview = item.Overview
-			series.AddedAt = evalTime(item.DateCreated)
+			series.AddedAt = item.DateCreated.Unix()
 			series.PrimaryImageId = item.PrimaryImageItemId
 			if series.PrimaryImageId == "" {
 				series.PrimaryImageId = item.Id
@@ -160,8 +162,8 @@ func UserGetSeries(baseurl string, collectionid string, userid string, accesstok
 			season.Name = item.Name
 			season.SeriesId = item.SeriesId
 			season.SeasonId = item.Id
-			season.ProductionYear = strconv.Itoa(int(item.ProductionYear))
-			season.AddedAt = evalTime(item.DateCreated)
+			season.ProductionYear = item.ProductionYear
+			season.AddedAt = item.DateCreated.Unix()
 			season.PrimaryImageId = item.PrimaryImageItemId
 			if season.PrimaryImageId == "" {
 				season.PrimaryImageId = item.Id
@@ -179,19 +181,20 @@ func UserGetSeries(baseurl string, collectionid string, userid string, accesstok
 			episode.Name = item.Name
 			episode.OriginalTitle = item.OriginalTitle
 			episode.EpisodeId = item.Id
-			episode.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			episode.ProductionYear = item.ProductionYear
 			episode.Actors = evalPersons(item.People, ActorPersonType, GuestStarPersonType)
 			episode.Directors = evalPersons(item.People, DirectorPersonType)
-			episode.Runtime = evalRuntime(item.RunTimeTicks)
+			episode.Runtime = item.RunTimeTicks
 			episode.Container = item.Container
 			episode.AudioCodec, episode.VideoCodec = evalCodecs(item.MediaSources)
-			episode.Resolution = evalResolution(item.Width, item.Height)
-			episode.Bitrate = evalBitrate(item.Bitrate)
+			episode.Width = item.Width
+			episode.Height = item.Height
+			episode.Bitrate = item.Bitrate
 			episode.SortIndex = item.IndexNumber
-			episode.FileSize = evalFileSize(item.Size)
+			episode.FileSize = item.Size
 			episode.FileName = item.FileName
 			episode.Overview = item.Overview
-			episode.AddedAt = evalTime(item.DateCreated)
+			episode.AddedAt = item.DateCreated.Unix()
 			episode.PrimaryImageId = item.PrimaryImageItemId
 			if episode.PrimaryImageId == "" {
 				episode.PrimaryImageId = item.Id
@@ -227,15 +230,16 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 		case VideoType:
 			video := HomeVideoDataInc{}
 			video.Name = item.Name
-			video.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			video.ProductionYear = item.ProductionYear
 			video.Genres = evalNameLongIdPairs(item.GenreItems)
 			video.Overview = item.Overview
 			video.Container = item.Container
-			video.Resolution = evalResolution(item.Width, item.Height)
+			video.Width = item.Width
+			video.Height = item.Height
 			video.AudioCodec, video.VideoCodec = evalCodecs(item.MediaSources)
-			video.Runtime = evalRuntime(item.RunTimeTicks)
-			video.Bitrate = evalBitrate(item.Bitrate)
-			video.FileSize = evalFileSize(item.Size)
+			video.Runtime = item.RunTimeTicks
+			video.Bitrate = item.Bitrate
+			video.FileSize = item.Size
 			video.FileName = item.FileName
 			video.PrimaryImageId = item.PrimaryImageItemId
 			if video.PrimaryImageId == "" {
@@ -245,7 +249,7 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 			if video.PrimaryImageTag == "" {
 				video.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
-			video.AddedAt = evalTime(item.DateCreated)
+			video.AddedAt = item.DateCreated.Unix()
 			video.FolderId = item.ParentId
 			HomeVideoTable.Data.THomeVideoData = append(HomeVideoTable.Data.THomeVideoData, video)
 			break
@@ -276,15 +280,16 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 		case MusicVideoType:
 			video := MusicVideoDataInc{}
 			video.Name = item.Name
-			video.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			video.ProductionYear = item.ProductionYear
 			video.Genres = evalNameLongIdPairs(item.GenreItems)
 			video.Container = item.Container
-			video.Resolution = evalResolution(item.Width, item.Height)
+			video.Width = item.Width
+			video.Height = item.Height
 			video.AudioCodec, video.VideoCodec = evalCodecs(item.MediaSources)
-			video.Runtime = evalRuntime(item.RunTimeTicks)
-			video.Bitrate = evalBitrate(item.Bitrate)
-			video.AddedAt = evalTime(item.DateCreated)
-			video.FileSize = evalFileSize(item.Size)
+			video.Runtime = item.RunTimeTicks
+			video.Bitrate = item.Bitrate
+			video.AddedAt = item.DateCreated.Unix()
+			video.FileSize = item.Size
 			video.FileName = item.FileName
 			video.PrimaryImageId = item.PrimaryImageItemId
 			if video.PrimaryImageId == "" {
@@ -326,7 +331,7 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 		case AudioType:
 			audio := AudioDataInc{}
 			audio.Name = item.Name
-			audio.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			audio.ProductionYear = item.ProductionYear
 			audio.Artists = evalNameIdPairs(item.ArtistItems)
 			audio.Genres = evalNameLongIdPairs(item.GenreItems)
 			audio.Container = item.Container
@@ -336,15 +341,15 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 				audio.AlbumArtist = item.AlbumArtist
 				audio.AlbumArtistId = ""
 			}
-			audio.FileSize = evalFileSize(item.Size)
+			audio.FileSize = item.Size
 			audio.FileName = item.FileName
-			audio.Bitrate = evalBitrate(item.Bitrate)
+			audio.Bitrate = item.Bitrate
 			audio.AudioCodec, _ = evalCodecs(item.MediaSources)
-			audio.TrackNumber = strconv.Itoa(int(item.IndexNumber))
-			audio.Runtime = evalRuntime(item.RunTimeTicks)
+			audio.TrackNumber = item.IndexNumber
+			audio.Runtime = item.RunTimeTicks
 			audio.Type = item.Type
 			audio.MediaType = item.MediaType
-			audio.AddedAt = evalTime(item.DateCreated)
+			audio.AddedAt = item.DateCreated.Unix()
 			audio.PrimaryImageId = item.PrimaryImageItemId
 			if audio.PrimaryImageId == "" {
 				audio.PrimaryImageId = item.Id
@@ -360,7 +365,7 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 		case MusicAlbumType:
 			album := AlbumDataInc{}
 			album.Name = item.Name
-			album.ProductionYear = strconv.Itoa(int(item.ProductionYear))
+			album.ProductionYear = item.ProductionYear
 			album.Artists = evalNameIdPairs(item.ArtistItems)
 			album.Genres = evalNameLongIdPairs(item.GenreItems)
 			album.AlbumId = item.Id
@@ -370,8 +375,8 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 				album.AlbumArtistId = ""
 			}
 			album.Genres = evalNameLongIdPairs(item.GenreItems)
-			album.Runtime = evalRuntime(item.RunTimeTicks)
-			album.AddedAt = evalTime(item.DateCreated)
+			album.Runtime = item.RunTimeTicks
+			album.AddedAt = item.DateCreated.Unix()
 			album.PrimaryImageId = item.PrimaryImageItemId
 			if album.PrimaryImageId == "" {
 				album.PrimaryImageId = item.Id
@@ -430,4 +435,76 @@ func SendNetworkBroadcast() {
 			time.Sleep(1 * time.Second)
 		}
 	}()
+}
+
+// ---Optional Evaluation/Conversion Functions---
+
+func EvalFileSize(filesize int64) string {
+	const (
+		KB = 1024
+		MB = 1024 * KB
+		GB = 1024 * MB
+	)
+	switch {
+	case filesize < KB:
+		return fmt.Sprintf("%d B", filesize)
+	case filesize < MB:
+		return fmt.Sprintf("%.2f KB", float64(filesize)/KB)
+	case filesize < GB:
+		return fmt.Sprintf("%.2f MB", float64(filesize)/MB)
+	default:
+		return fmt.Sprintf("%.2f GB", float64(filesize)/GB)
+	}
+}
+
+func EvalBitrate(bitrate int32) string {
+	const (
+		K = 1000
+		M = 1000 * K
+		G = 1000 * M
+	)
+	b := float64(bitrate)
+	switch {
+	case b < K:
+		return fmt.Sprintf("%d bps", bitrate)
+	case b < M:
+		return fmt.Sprintf("%.0f kbps", b/K)
+	case b < G:
+		return fmt.Sprintf("%.2f Mbps", b/M)
+	default:
+		return fmt.Sprintf("%.2f Gbps", b/G)
+	}
+}
+
+func EvalTime(ts int64) string {
+	return time.Unix(ts, 0).UTC().Format("2006-01-02") // ISO 8601 date format
+}
+
+func EvalRuntime(ticks int64) string {
+	if ticks <= 0 {
+		return ""
+	}
+	seconds := ticks / 10_000_000
+	hours := seconds / 3600
+	minutes := (seconds % 3600) / 60
+	var b strings.Builder
+	if hours > 0 {
+		b.WriteString(strconv.Itoa(int(hours)))
+		b.WriteByte('h')
+	}
+	if minutes > 0 {
+		if hours > 0 {
+			b.WriteByte(' ')
+		}
+		b.WriteString(strconv.Itoa(int(minutes)))
+		b.WriteString("min")
+	}
+	return b.String()
+}
+
+func EvalResolution(w int32, h int32) string {
+	if w > 0 && h > 0 {
+		return strconv.Itoa(int(w)) + "x" + strconv.Itoa(int(h))
+	}
+	return ""
 }

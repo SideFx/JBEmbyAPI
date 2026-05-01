@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        parser.hpp
 // Purpose:     Json parser and data definitions
-// Author:      Jan Buchholz (Header was mainly created by Copilot)
+// Author:      Jan Buchholz (Copilot did the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-04-26
+// Last update: 2026-05-01
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -77,8 +77,8 @@ struct FolderDataInc {
 struct MovieDataInc {
     std::string name;
     std::string originalTitle;
-    std::string productionYear;
-    std::string runtime;
+    int32_t productionYear = 0;
+    int64_t runtime = 0;
     std::vector<std::string> actors;
     std::vector<std::string> directors;
     std::vector<std::string> studios;
@@ -87,11 +87,12 @@ struct MovieDataInc {
     std::string container;
     std::string audioCodec;
     std::string videoCodec;
-    std::string resolution;
-    std::string bitrate;
-    std::string fileSize;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t bitrate = 0;
+    int64_t fileSize = 0;
     std::string fileName;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
@@ -124,8 +125,8 @@ inline MoviesDataImp parseMovies(const std::string& raw) {
         MovieDataInc md;
         md.name            = m["Name"].get<std::string>();
         md.originalTitle   = m["OriginalTitle"].get<std::string>();
-        md.productionYear  = m["ProductionYear"].get<std::string>();
-        md.runtime         = m["Runtime"].get<std::string>();
+        md.productionYear  = m["ProductionYear"].get<int32_t>();
+        md.runtime         = m["Runtime"].get<int64_t>();
         md.actors          = m["Actors"].get<std::vector<std::string>>();
         md.directors       = m["Directors"].get<std::vector<std::string>>();
         md.studios         = m["Studios"].get<std::vector<std::string>>();
@@ -134,11 +135,12 @@ inline MoviesDataImp parseMovies(const std::string& raw) {
         md.container       = m["Container"].get<std::string>();
         md.audioCodec      = m["AudioCodec"].get<std::string>();
         md.videoCodec      = m["VideoCodec"].get<std::string>();
-        md.resolution      = m["Resolution"].get<std::string>();
-        md.bitrate         = m["Bitrate"].get<std::string>();
-        md.fileSize        = m["FileSize"].get<std::string>();
+        md.width           = m["Width"].get<int32_t>();
+        md.height          = m["Height"].get<int32_t>();
+        md.bitrate         = m["Bitrate"].get<int32_t>();
+        md.fileSize        = m["FileSize"].get<int64_t>();
         md.fileName        = m["FileName"].get<std::string>();
-        md.addedAt         = m["AddedAt"].get<std::string>();
+        md.addedAt         = m["AddedAt"].get<int64_t>();
         md.primaryImageId  = m["PrimaryImageId"].get<std::string>();
         md.primaryImageTag = m["PrimaryImageTag"].get<std::string>();
         md.imDbId          = m["ImdbId"].get<std::string>();
@@ -160,13 +162,13 @@ inline MoviesDataImp parseMovies(const std::string& raw) {
 struct SeriesDataInc {
     std::string name;
     std::string originalTitle;
-    std::string productionYear;
+    int32_t productionYear = 0;
     std::vector<std::string> actors;
     std::vector<std::string> directors;
     std::vector<std::string> studios;
     std::vector<std::string> genres;
     std::string overview;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
@@ -177,9 +179,9 @@ struct SeriesDataInc {
 
 struct SeasonDataInc {
     std::string name;
-    std::string productionYear;
-    std::string runtime;
-    std::string addedAt;
+    int32_t productionYear = 0;
+    int64_t runtime = 0;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string seriesId;
@@ -191,19 +193,20 @@ struct SeasonDataInc {
 struct EpisodeDataInc {
     std::string name;
     std::string originalTitle;
-    std::string productionYear;
-    std::string runtime;
+    int32_t productionYear = 0;
+    int64_t runtime = 0;
     std::vector<std::string> actors;
     std::vector<std::string> directors;
     std::string overview;
     std::string container;
     std::string audioCodec;
     std::string videoCodec;
-    std::string resolution;
-    std::string bitrate;
-    std::string fileSize;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t bitrate = 0;
+    int64_t fileSize = 0;
     std::string fileName;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
@@ -240,13 +243,13 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
         SeriesDataInc sd;
         sd.name            = s["Name"].get<std::string>();
         sd.originalTitle   = s["OriginalTitle"].get<std::string>();
-        sd.productionYear  = s["ProductionYear"].get<std::string>();
+        sd.productionYear  = s["ProductionYear"].get<int32_t>();
         sd.actors          = s["Actors"].get<std::vector<std::string>>();
         sd.directors       = s["Directors"].get<std::vector<std::string>>();
         sd.studios         = s["Studios"].get<std::vector<std::string>>();
         sd.genres          = s["Genres"].get<std::vector<std::string>>();
         sd.overview        = s["Overview"].get<std::string>();
-        sd.addedAt         = s["AddedAt"].get<std::string>();
+        sd.addedAt         = s["AddedAt"].get<int64_t>();
         sd.primaryImageId  = s["PrimaryImageId"].get<std::string>();
         sd.primaryImageTag = s["PrimaryImageTag"].get<std::string>();
         sd.imDbId          = s["ImdbId"].get<std::string>();
@@ -259,9 +262,9 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
     for (auto& s : j["Series"]["SeasonData"]) {
         SeasonDataInc sd;
         sd.name            = s["Name"].get<std::string>();
-        sd.productionYear  = s["ProductionYear"].get<std::string>();
-        sd.runtime         = s["Runtime"].get<std::string>();
-        sd.addedAt         = s["AddedAt"].get<std::string>();
+        sd.productionYear  = s["ProductionYear"].get<int32_t>();
+        sd.runtime         = s["Runtime"].get<int64_t>();
+        sd.addedAt         = s["AddedAt"].get<int64_t>();
         sd.primaryImageId  = s["PrimaryImageId"].get<std::string>();
         sd.primaryImageTag = s["PrimaryImageTag"].get<std::string>();
         sd.seriesId        = s["SeriesId"].get<std::string>();
@@ -275,19 +278,20 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
         EpisodeDataInc ed;
         ed.name            = e["Name"].get<std::string>();
         ed.originalTitle   = e["OriginalTitle"].get<std::string>();
-        ed.productionYear  = e["ProductionYear"].get<std::string>();
-        ed.runtime         = e["Runtime"].get<std::string>();
+        ed.productionYear  = e["ProductionYear"].get<int32_t>();
+        ed.runtime         = e["Runtime"].get<int64_t>();
         ed.actors          = e["Actors"].get<std::vector<std::string>>();
         ed.directors       = e["Directors"].get<std::vector<std::string>>();
         ed.overview        = e["Overview"].get<std::string>();
         ed.container       = e["Container"].get<std::string>();
         ed.audioCodec      = e["AudioCodec"].get<std::string>();
         ed.videoCodec      = e["VideoCodec"].get<std::string>();
-        ed.resolution      = e["Resolution"].get<std::string>();
-        ed.bitrate         = e["Bitrate"].get<std::string>();
-        ed.fileSize        = e["FileSize"].get<std::string>();
+        ed.width           = e["Width"].get<int32_t>();
+        ed.height          = e["Height"].get<int32_t>();
+        ed.bitrate         = e["Bitrate"].get<int32_t>();
+        ed.fileSize        = e["FileSize"].get<int64_t>();
         ed.fileName        = e["FileName"].get<std::string>();
-        ed.addedAt         = e["AddedAt"].get<std::string>();
+        ed.addedAt         = e["AddedAt"].get<int64_t>();
         ed.primaryImageId  = e["PrimaryImageId"].get<std::string>();
         ed.primaryImageTag = e["PrimaryImageTag"].get<std::string>();
         ed.imDbId          = e["ImdbId"].get<std::string>();
@@ -304,18 +308,19 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
 
 struct HomeVideoDataInc {
     std::string name;
-    std::string productionYear;
+    int32_t productionYear = 0;
     std::vector<std::string> genres;
-    std::string runtime;
+    int64_t runtime = 0;
     std::string overview;
     std::string container;
     std::string audioCodec;
     std::string videoCodec;
-    std::string resolution;
-    std::string bitrate;
-    std::string fileSize;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t bitrate = 0;
+    int64_t fileSize = 0;
     std::string fileName;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string folderId;
@@ -345,18 +350,19 @@ inline HomeVideosDataImp parseHomeVideos(const std::string& raw) {
     for (auto& hv : j["HomeVideos"]["HomeVideoData"]) {
         HomeVideoDataInc h;
         h.name            = hv["Name"].get<std::string>();
-        h.productionYear  = hv["ProductionYear"].get<std::string>();
+        h.productionYear  = hv["ProductionYear"].get<int32_t>();
         h.genres          = hv["Genres"].get<std::vector<std::string>>();
-        h.runtime         = hv["Runtime"].get<std::string>();
+        h.runtime         = hv["Runtime"].get<int64_t>();
         h.overview        = hv["Overview"].get<std::string>();
         h.container       = hv["Container"].get<std::string>();
         h.audioCodec      = hv["AudioCodec"].get<std::string>();
         h.videoCodec      = hv["VideoCodec"].get<std::string>();
-        h.resolution      = hv["Resolution"].get<std::string>();
-        h.bitrate         = hv["Bitrate"].get<std::string>();
-        h.fileSize        = hv["FileSize"].get<std::string>();
+        h.width           = hv["Width"].get<int32_t>();
+        h.height          = hv["Height"].get<int32_t>();
+        h.bitrate         = hv["Bitrate"].get<int32_t>();
+        h.fileSize        = hv["FileSize"].get<int64_t>();
         h.fileName        = hv["FileName"].get<std::string>();
-        h.addedAt         = hv["AddedAt"].get<std::string>();
+        h.addedAt         = hv["AddedAt"].get<int64_t>();
         h.primaryImageId  = hv["PrimaryImageId"].get<std::string>();
         h.primaryImageTag = hv["PrimaryImageTag"].get<std::string>();
         h.folderId        = hv["FolderId"].get<std::string>();
@@ -375,18 +381,19 @@ inline HomeVideosDataImp parseHomeVideos(const std::string& raw) {
 
 struct MusicVideoDataInc {
     std::string name;
-    std::string productionYear;
-    std::string runtime;
+    int32_t productionYear = 0;
+    int64_t runtime = 0;
     std::vector<std::string> genres;
     std::string overview;
     std::string container;
     std::string audioCodec;
     std::string videoCodec;
-    std::string resolution;
-    std::string bitrate;
-    std::string fileSize;
+    int32_t width = 0;
+    int32_t height = 0;
+    int32_t bitrate = 0;
+    int64_t fileSize = 0;
     std::string fileName;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
@@ -418,18 +425,19 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
     for (auto& mv : j["MusicVideos"]["MusicVideoData"]) {
         MusicVideoDataInc m;
         m.name            = mv["Name"].get<std::string>();
-        m.productionYear  = mv["ProductionYear"].get<std::string>();
-        m.runtime         = mv["Runtime"].get<std::string>();
+        m.productionYear  = mv["ProductionYear"].get<int32_t>();
+        m.runtime         = mv["Runtime"].get<int64_t>();
         m.genres          = mv["Genres"].get<std::vector<std::string>>();
         m.overview        = mv["Overview"].get<std::string>();
         m.container       = mv["Container"].get<std::string>();
         m.audioCodec      = mv["AudioCodec"].get<std::string>();
         m.videoCodec      = mv["VideoCodec"].get<std::string>();
-        m.resolution      = mv["Resolution"].get<std::string>();
-        m.bitrate         = mv["Bitrate"].get<std::string>();
-        m.fileSize        = mv["FileSize"].get<std::string>();
+        m.width           = mv["Width"].get<int32_t>();
+        m.height          = mv["Height"].get<int32_t>();
+        m.bitrate         = mv["Bitrate"].get<int32_t>();
+        m.fileSize        = mv["FileSize"].get<int64_t>();
         m.fileName        = mv["FileName"].get<std::string>();
-        m.addedAt         = mv["AddedAt"].get<std::string>();
+        m.addedAt         = mv["AddedAt"].get<int64_t>();
         m.primaryImageId  = mv["PrimaryImageId"].get<std::string>();
         m.primaryImageTag = mv["PrimaryImageTag"].get<std::string>();
         m.imDbId          = mv["ImdbId"].get<std::string>();
@@ -451,12 +459,12 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
 
 struct AlbumDataInc {
     std::string name;
-    std::string productionYear;
+    int32_t productionYear = 0;
     std::string albumArtist;
-    std::string runtime;
+    int64_t runtime = 0;
     std::vector<std::string> artists;
     std::vector<std::string> genres;
-    std::string addedAt;
+    int64_t addedAt = 0;
     std::string albumId;
     std::string albumArtistId;
     std::string primaryImageId;
@@ -467,18 +475,18 @@ struct AlbumDataInc {
 
 struct AudioDataInc {
     std::string name;
-    std::string productionYear;
-    std::string trackNumber;
+    int32_t productionYear = 0;
+    int32_t trackNumber = 0;
     std::string album;
     std::string albumArtist;
-    std::string runtime;
+    int64_t runtime = 0;
     std::vector<std::string> artists;
     std::vector<std::string> genres;
     std::string container;
     std::string audioCodec;
-    std::string bitrate;
-    std::string addedAt;
-    std::string fileSize;
+    int32_t bitrate = 0;
+    int64_t addedAt = 0;
+    int64_t fileSize = 0;
     std::string fileName;
     std::string primaryImageId;
     std::string primaryImageTag;
@@ -512,12 +520,12 @@ inline MusicDataImp parseMusic(const std::string& raw) {
     for (auto& a : j["Music"]["AlbumData"]) {
         AlbumDataInc ad;
         ad.name            = a["Name"].get<std::string>();
-        ad.productionYear  = a["ProductionYear"].get<std::string>();
+        ad.productionYear  = a["ProductionYear"].get<int32_t>();
         ad.albumArtist     = a["AlbumArtist"].get<std::string>();
-        ad.runtime         = a["Runtime"].get<std::string>();
+        ad.runtime         = a["Runtime"].get<int64_t>();
         ad.artists         = a["Artists"].get<std::vector<std::string>>();
         ad.genres          = a["Genres"].get<std::vector<std::string>>();
-        ad.addedAt         = a["AddedAt"].get<std::string>();
+        ad.addedAt         = a["AddedAt"].get<int64_t>();
         ad.albumId         = a["AlbumId"].get<std::string>();
         ad.albumArtistId   = a["ArtistId"].get<std::string>();
         ad.primaryImageId  = a["PrimaryImageId"].get<std::string>();
@@ -530,18 +538,18 @@ inline MusicDataImp parseMusic(const std::string& raw) {
     for (auto& au : j["Music"]["AudioData"]) {
         AudioDataInc ad;
         ad.name            = au["Name"].get<std::string>();
-        ad.productionYear  = au["ProductionYear"].get<std::string>();
-        ad.trackNumber     = au["TrackNumber"].get<std::string>();
+        ad.productionYear  = au["ProductionYear"].get<int32_t>();
+        ad.trackNumber     = au["TrackNumber"].get<int32_t>();
         ad.album           = au["Album"].get<std::string>();
         ad.albumArtist     = au["AlbumArtist"].get<std::string>();
-        ad.runtime         = au["Runtime"].get<std::string>();
+        ad.runtime         = au["Runtime"].get<int64_t>();
         ad.artists         = au["Artists"].get<std::vector<std::string>>();
         ad.genres          = au["Genres"].get<std::vector<std::string>>();
         ad.container       = au["Container"].get<std::string>();
         ad.audioCodec      = au["AudioCodec"].get<std::string>();
-        ad.bitrate         = au["Bitrate"].get<std::string>();
-        ad.addedAt         = au["AddedAt"].get<std::string>();
-        ad.fileSize        = au["FileSize"].get<std::string>();
+        ad.bitrate         = au["Bitrate"].get<int32_t>();
+        ad.addedAt         = au["AddedAt"].get<int64_t>();
+        ad.fileSize        = au["FileSize"].get<int64_t>();
         ad.fileName        = au["FileName"].get<std::string>();
         ad.primaryImageId  = au["PrimaryImageId"].get<std::string>();
         ad.primaryImageTag = au["PrimaryImageTag"].get<std::string>();

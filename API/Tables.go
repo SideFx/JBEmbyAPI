@@ -3,7 +3,7 @@
 // Purpose:     Data types for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-04-26
+// Last update: 2026-05-01
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -23,8 +23,8 @@ type FolderDataInc struct {
 type MovieDataInc struct {
 	Name            string   `json:"Name"`
 	OriginalTitle   string   `json:"OriginalTitle"`
-	ProductionYear  string   `json:"ProductionYear"`
-	Runtime         string   `json:"Runtime"`
+	ProductionYear  int32    `json:"ProductionYear"`
+	Runtime         int64    `json:"Runtime"`
 	Actors          []string `json:"Actors"`
 	Directors       []string `json:"Directors"`
 	Studios         []string `json:"Studios"`
@@ -33,11 +33,12 @@ type MovieDataInc struct {
 	Container       string   `json:"Container"`
 	AudioCodec      string   `json:"AudioCodec"`
 	VideoCodec      string   `json:"VideoCodec"`
-	Resolution      string   `json:"Resolution"`
-	Bitrate         string   `json:"Bitrate"`
-	FileSize        string   `json:"FileSize"`
+	Width           int32    `json:"Width"`
+	Height          int32    `json:"Height"`
+	Bitrate         int32    `json:"Bitrate"`
+	FileSize        int64    `json:"FileSize"`
 	FileName        string   `json:"FileName"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
@@ -62,13 +63,13 @@ var MovieTable = DataDescription[MovieData]{
 type SeriesDataInc struct {
 	Name            string   `json:"Name"`
 	OriginalTitle   string   `json:"OriginalTitle"`
-	ProductionYear  string   `json:"ProductionYear"`
+	ProductionYear  int32    `json:"ProductionYear"`
 	Actors          []string `json:"Actors"`
 	Directors       []string `json:"Directors"`
 	Studios         []string `json:"Studios"`
 	Genres          []string `json:"Genres"`
 	Overview        string   `json:"Overview"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
@@ -79,9 +80,9 @@ type SeriesDataInc struct {
 
 type SeasonDataInc struct {
 	Name            string `json:"Name"`
-	ProductionYear  string `json:"ProductionYear"`
-	Runtime         string `json:"Runtime"`
-	AddedAt         string `json:"AddedAt"`
+	ProductionYear  int32  `json:"ProductionYear"`
+	Runtime         int64  `json:"Runtime"`
+	AddedAt         int64  `json:"AddedAt"`
 	PrimaryImageId  string `json:"PrimaryImageId"`
 	PrimaryImageTag string `json:"PrimaryImageTag"`
 	SeriesId        string `json:"SeriesId"`
@@ -93,19 +94,20 @@ type SeasonDataInc struct {
 type EpisodeDataInc struct {
 	Name            string   `json:"Name"`
 	OriginalTitle   string   `json:"OriginalTitle"`
-	ProductionYear  string   `json:"ProductionYear"`
-	Runtime         string   `json:"Runtime"`
+	ProductionYear  int32    `json:"ProductionYear"`
+	Runtime         int64    `json:"Runtime"`
 	Actors          []string `json:"Actors"`
 	Directors       []string `json:"Directors"`
 	Overview        string   `json:"Overview"`
 	Container       string   `json:"Container"`
 	AudioCodec      string   `json:"AudioCodec"`
 	VideoCodec      string   `json:"VideoCodec"`
-	Resolution      string   `json:"Resolution"`
-	Bitrate         string   `json:"Bitrate"`
-	FileSize        string   `json:"FileSize"`
+	Width           int32    `json:"Width"`
+	Height          int32    `json:"Height"`
+	Bitrate         int32    `json:"Bitrate"`
+	FileSize        int64    `json:"FileSize"`
 	FileName        string   `json:"FileName"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
@@ -134,18 +136,19 @@ var SeriesTable = DataDescription[SeriesData]{
 
 type HomeVideoDataInc struct {
 	Name            string   `json:"Name"`
-	ProductionYear  string   `json:"ProductionYear"`
+	ProductionYear  int32    `json:"ProductionYear"`
 	Genres          []string `json:"Genres"`
-	Runtime         string   `json:"Runtime"`
+	Runtime         int64    `json:"Runtime"`
 	Overview        string   `json:"Overview"`
 	Container       string   `json:"Container"`
 	AudioCodec      string   `json:"AudioCodec"`
 	VideoCodec      string   `json:"VideoCodec"`
-	Resolution      string   `json:"Resolution"`
-	Bitrate         string   `json:"Bitrate"`
-	FileSize        string   `json:"FileSize"`
+	Width           int32    `json:"Width"`
+	Height          int32    `json:"Height"`
+	Bitrate         int32    `json:"Bitrate"`
+	FileSize        int64    `json:"FileSize"`
 	FileName        string   `json:"FileName"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	FolderId        string   `json:"FolderId"`
@@ -167,18 +170,19 @@ var HomeVideoTable = DataDescription[HomeVideoData]{
 
 type MusicVideoDataInc struct {
 	Name            string   `json:"Name"`
-	ProductionYear  string   `json:"ProductionYear"`
-	Runtime         string   `json:"Runtime"`
+	ProductionYear  int32    `json:"ProductionYear"`
+	Runtime         int64    `json:"Runtime"`
 	Genres          []string `json:"Genres"`
 	Overview        string   `json:"Overview"`
 	Container       string   `json:"Container"`
 	AudioCodec      string   `json:"AudioCodec"`
 	VideoCodec      string   `json:"VideoCodec"`
-	Resolution      string   `json:"Resolution"`
-	Bitrate         string   `json:"Bitrate"`
-	FileSize        string   `json:"FileSize"`
+	Width           int32    `json:"Width"`
+	Height          int32    `json:"Height"`
+	Bitrate         int32    `json:"Bitrate"`
+	FileSize        int64    `json:"FileSize"`
 	FileName        string   `json:"FileName"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
@@ -202,12 +206,12 @@ var MusicVideoTable = DataDescription[MusicVideoData]{
 
 type AlbumDataInc struct {
 	Name            string   `json:"Name"`
-	ProductionYear  string   `json:"ProductionYear"`
+	ProductionYear  int32    `json:"ProductionYear"`
 	AlbumArtist     string   `json:"AlbumArtist"`
-	Runtime         string   `json:"Runtime"`
+	Runtime         int64    `json:"Runtime"`
 	Artists         []string `json:"Artists"`
 	Genres          []string `json:"Genres"`
-	AddedAt         string   `json:"AddedAt"`
+	AddedAt         int64    `json:"AddedAt"`
 	AlbumId         string   `json:"AlbumId"`
 	AlbumArtistId   string   `json:"ArtistId"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
@@ -218,18 +222,18 @@ type AlbumDataInc struct {
 
 type AudioDataInc struct {
 	Name            string   `json:"Name"`
-	ProductionYear  string   `json:"ProductionYear"`
-	TrackNumber     string   `json:"TrackNumber"`
+	ProductionYear  int32    `json:"ProductionYear"`
+	TrackNumber     int32    `json:"TrackNumber"`
 	Album           string   `json:"Album"`
 	AlbumArtist     string   `json:"AlbumArtist"`
-	Runtime         string   `json:"Runtime"`
+	Runtime         int64    `json:"Runtime"`
 	Artists         []string `json:"Artists"`
 	Genres          []string `json:"Genres"`
 	Container       string   `json:"Container"`
 	AudioCodec      string   `json:"AudioCodec"`
-	Bitrate         string   `json:"Bitrate"`
-	AddedAt         string   `json:"AddedAt"`
-	FileSize        string   `json:"FileSize"`
+	Bitrate         int32    `json:"Bitrate"`
+	AddedAt         int64    `json:"AddedAt"`
+	FileSize        int64    `json:"FileSize"`
 	FileName        string   `json:"FileName"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`

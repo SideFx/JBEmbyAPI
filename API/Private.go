@@ -3,7 +3,7 @@
 // Purpose:     Private functions
 // Author:      Jan Buchholz
 // Created:     2025-04-15
-// Last update: 2026-04-26
+// Last update: 2026-05-01
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -11,16 +11,13 @@ package API
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net"
 	"net/http"
 	"os"
 	"runtime"
 	"sort"
-	"strconv"
 	"strings"
-	"time"
 )
 
 func sendNetworkBroadcast() {
@@ -263,91 +260,31 @@ func evalAlbumArtists(pair []NameIdPair) (string, string) {
 	return pair[0].Name, pair[0].Id
 }
 
-func evalResolution(w int32, h int32) string {
-	if w > 0 && h > 0 {
-		return strconv.Itoa(int(w)) + "x" + strconv.Itoa(int(h))
-	}
-	return ""
-}
-
-func evalRuntime(ticks int64) string {
-	if ticks <= 0 {
-		return ""
-	}
-	seconds := ticks / 10_000_000
-	hours := seconds / 3600
-	minutes := (seconds % 3600) / 60
-	var b strings.Builder
-	if hours > 0 {
-		b.WriteString(strconv.Itoa(int(hours)))
-		b.WriteByte('h')
-	}
-	if minutes > 0 {
-		if hours > 0 {
-			b.WriteByte(' ')
-		}
-		b.WriteString(strconv.Itoa(int(minutes)))
-		b.WriteString("min")
-	}
-	return b.String()
-}
-
 func evalCodecs(media []MediaSourceInfo) (string, string) {
-	audio := make([]string, 0, 3)
-	video := make([]string, 0, 3)
+	audioSet := make(map[string]struct{})
+	videoSet := make(map[string]struct{})
 	for _, m := range media {
 		for _, s := range m.MediaStreams {
 			switch s.Type {
 			case AudioMediaStreamType:
-				audio = append(audio, s.Codec)
+				audioSet[s.Codec] = struct{}{}
 			case VideoMediaStreamType:
-				video = append(video, s.Codec)
+				videoSet[s.Codec] = struct{}{}
 			}
 		}
 	}
+	// Sets -> Slices
+	audio := make([]string, 0, len(audioSet))
+	for k := range audioSet {
+		audio = append(audio, k)
+	}
+	video := make([]string, 0, len(videoSet))
+	for k := range videoSet {
+		video = append(video, k)
+	}
+	sort.Strings(audio)
+	sort.Strings(video)
 	return strings.Join(audio, ", "), strings.Join(video, ", ")
-}
-
-func evalTime(date time.Time) string {
-
-	return date.Format("2006-01-02") // ISO 8601 date format
-}
-
-func evalFileSize(filesize int64) string {
-	const (
-		KB = 1024
-		MB = 1024 * KB
-		GB = 1024 * MB
-	)
-	switch {
-	case filesize < KB:
-		return fmt.Sprintf("%d B", filesize)
-	case filesize < MB:
-		return fmt.Sprintf("%.2f KB", float64(filesize)/KB)
-	case filesize < GB:
-		return fmt.Sprintf("%.2f MB", float64(filesize)/MB)
-	default:
-		return fmt.Sprintf("%.2f GB", float64(filesize)/GB)
-	}
-}
-
-func evalBitrate(bitrate int32) string {
-	const (
-		K = 1000
-		M = 1000 * K
-		G = 1000 * M
-	)
-	b := float64(bitrate)
-	switch {
-	case b < K:
-		return fmt.Sprintf("%d bps", bitrate)
-	case b < M:
-		return fmt.Sprintf("%.0f kbps", b/K)
-	case b < G:
-		return fmt.Sprintf("%.2f Mbps", b/M)
-	default:
-		return fmt.Sprintf("%.2f Gbps", b/G)
-	}
 }
 
 func sortFoldersById(folders []FolderDataInc) {

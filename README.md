@@ -55,7 +55,9 @@ creating the C++ JSON parser functions, and producing the template for loading t
 **2026-04-26:**
 - Added a `SendNetworkBroadcast` function to trigger the macOS local network permission popup. This function should be called during UI initialization from the host application (currently untested, as no UI exists yet).
 - Added FolderData support for Movies.
-- Added automatic pre‑sorting of all folder lists by name.
 
 **2026-05-01:**
-- Sort folders by id (not name) which makes more sense
+- Sort folders by Id
+- Return raw numeric values for date and size fields; all formatting and presentation should be handled by the UI layer to ensure correct sorting and localization.
+
+
