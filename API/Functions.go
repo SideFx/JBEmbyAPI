@@ -3,7 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-05-01
+// Last update: 2026-05-02
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -106,7 +106,7 @@ func UserGetMovies(baseurl string, collectionid string, userid string, accesstok
 			movie.FileName = item.FileName
 			movie.Overview = item.Overview
 			movie.ImDBId = item.ProviderIds[ImDb]
-			movie.TheMovieDBId = item.ProviderIds[TheMovieDb]
+			movie.Type = item.Type
 			MovieTable.Data.TMovieData = append(MovieTable.Data.TMovieData, movie)
 		case FolderType:
 			folder := FolderDataInc{}
@@ -152,7 +152,6 @@ func UserGetSeries(baseurl string, collectionid string, userid string, accesstok
 				series.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
 			series.ImDBId = item.ProviderIds[ImDb]
-			series.TheMovieDBId = item.ProviderIds[TheMovieDb]
 			series.SeriesId = item.Id
 			series.Type = item.Type
 			SeriesTable.Data.TSeriesData = append(SeriesTable.Data.TSeriesData, series)
@@ -204,7 +203,6 @@ func UserGetSeries(baseurl string, collectionid string, userid string, accesstok
 				episode.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
 			episode.ImDBId = item.ProviderIds[ImDb]
-			episode.TheMovieDBId = item.ProviderIds[TheMovieDb]
 			episode.SeriesId = item.SeriesId
 			episode.SeasonId = item.SeasonId
 			episode.Type = item.Type
@@ -251,6 +249,7 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 			}
 			video.AddedAt = item.DateCreated.Unix()
 			video.FolderId = item.ParentId
+			video.Type = item.Type
 			HomeVideoTable.Data.THomeVideoData = append(HomeVideoTable.Data.THomeVideoData, video)
 			break
 		case FolderType:
@@ -302,6 +301,7 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			video.ImDBId = item.ProviderIds[ImDb]
 			video.TheMovieDBId = item.ProviderIds[TheMovieDb]
 			video.FolderId = item.ParentId
+			video.Type = item.Type
 			MusicVideoTable.Data.TMusicVideoData = append(MusicVideoTable.Data.TMusicVideoData, video)
 			break
 		case FolderType:
@@ -347,7 +347,6 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 			audio.AudioCodec, _ = evalCodecs(item.MediaSources)
 			audio.TrackNumber = item.IndexNumber
 			audio.Runtime = item.RunTimeTicks
-			audio.Type = item.Type
 			audio.MediaType = item.MediaType
 			audio.AddedAt = item.DateCreated.Unix()
 			audio.PrimaryImageId = item.PrimaryImageItemId
@@ -360,6 +359,7 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 			}
 			audio.AudioId = item.Id
 			audio.AlbumId = item.AlbumId
+			audio.Type = item.Type
 			MusicTable.Data.TAudioData = append(MusicTable.Data.TAudioData, audio)
 			break
 		case MusicAlbumType:

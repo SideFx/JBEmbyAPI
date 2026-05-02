@@ -3,7 +3,7 @@
 // Purpose:     Data types for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-05-01
+// Last update: 2026-05-02
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -42,9 +42,9 @@ type MovieDataInc struct {
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
-	TheMovieDBId    string   `json:"TheMovieDbId"`
 	FolderId        string   `json:"FolderId"`
 	MovieId         string   `json:"MovieId"`
+	Type            string   `json:"Type"`
 }
 type MovieData struct {
 	TMovieData  []MovieDataInc  `json:"MovieData"`
@@ -73,7 +73,6 @@ type SeriesDataInc struct {
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
-	TheMovieDBId    string   `json:"TheMovieDbId"`
 	SeriesId        string   `json:"SeriesId"`
 	Type            string   `json:"Type"`
 }
@@ -111,7 +110,6 @@ type EpisodeDataInc struct {
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	ImDBId          string   `json:"ImdbId"`
-	TheMovieDBId    string   `json:"TheMovieDbId"`
 	SeriesId        string   `json:"SeriesId"`
 	SeasonId        string   `json:"SeasonId"`
 	EpisodeId       string   `json:"EpisodeId"`
@@ -153,6 +151,7 @@ type HomeVideoDataInc struct {
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	FolderId        string   `json:"FolderId"`
 	VideoId         string   `json:"VideoId"`
+	Type            string   `json:"Type"`
 }
 
 type HomeVideoData struct {
@@ -189,6 +188,7 @@ type MusicVideoDataInc struct {
 	TheMovieDBId    string   `json:"TheMovieDbId"`
 	MovieId         string   `json:"MovieId"`
 	FolderId        string   `json:"FolderId"`
+	Type            string   `json:"Type"`
 }
 
 type MusicVideoData struct {

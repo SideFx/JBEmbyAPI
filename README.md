@@ -60,4 +60,6 @@ creating the C++ JSON parser functions, and producing the template for loading t
 - Sort folders by Id
 - Return raw numeric values for date and size fields; all formatting and presentation should be handled by the UI layer to ensure correct sorting and localization.
 
+**2026-05-02:**
+- Minor fixes (return "Type" for Movies, HomeVideos and MusicVideos)
 

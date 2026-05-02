@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        parser.hpp
 // Purpose:     Json parser and data definitions
-// Author:      Jan Buchholz (Copilot did the json stuff)
+// Author:      Jan Buchholz (let Copilot generate the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-01
+// Last update: 2026-05-02
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -12,11 +12,21 @@
 using json = nlohmann::json;
 
 // Supported collections (user views)
-constexpr std::string_view CollectionMovies = "movies";
-constexpr std::string_view CollectionSeries = "tvshows";
-constexpr std::string_view CollectionHomeVideos = "homevideos";
-constexpr std::string_view CollectionMusic = "music";
+constexpr std::string_view CollectionMovies      = "movies";
+constexpr std::string_view CollectionSeries      = "tvshows";
+constexpr std::string_view CollectionHomeVideos  = "homevideos";
+constexpr std::string_view CollectionMusic       = "music";
 constexpr std::string_view CollectionMusicVideos = "musicvideos";
+
+constexpr std::string_view VideoType      = "Video";
+constexpr std::string_view SeriesType     = "Series";
+constexpr std::string_view SeasonType     = "Season";
+constexpr std::string_view EpisodeType    = "Episode";
+constexpr std::string_view MovieType      = "Movie";
+constexpr std::string_view FolderType     = "Folder";
+constexpr std::string_view AudioType      = "Audio";
+constexpr std::string_view MusicVideoType = "MusicVideo";
+constexpr std::string_view MusicAlbumType = "MusicAlbum";
 
 struct EmbyLogonResult {
     std::string baseUrl;
@@ -99,6 +109,7 @@ struct MovieDataInc {
     std::string theMovieDbId;
     std::string folderId;
     std::string movieId;
+    std::string type;
 };
 
 struct MovieData {
@@ -144,7 +155,7 @@ inline MoviesDataImp parseMovies(const std::string& raw) {
         md.primaryImageId  = m["PrimaryImageId"].get<std::string>();
         md.primaryImageTag = m["PrimaryImageTag"].get<std::string>();
         md.imDbId          = m["ImdbId"].get<std::string>();
-        md.theMovieDbId    = m["TheMovieDbId"].get<std::string>();
+        md.type            = m["Type"].get<std::string>();
         md.folderId        = m["FolderId"].get<std::string>();
         md.movieId         = m["MovieId"].get<std::string>();
         r.movies.tMovieData.push_back(std::move(md));
@@ -172,7 +183,6 @@ struct SeriesDataInc {
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
-    std::string theMovieDbId;
     std::string seriesId;
     std::string type;
 };
@@ -210,7 +220,6 @@ struct EpisodeDataInc {
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
-    std::string theMovieDbId;
     std::string seriesId;
     std::string seasonId;
     std::string episodeId;
@@ -253,7 +262,6 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
         sd.primaryImageId  = s["PrimaryImageId"].get<std::string>();
         sd.primaryImageTag = s["PrimaryImageTag"].get<std::string>();
         sd.imDbId          = s["ImdbId"].get<std::string>();
-        sd.theMovieDbId    = s["TheMovieDbId"].get<std::string>();
         sd.seriesId        = s["SeriesId"].get<std::string>();
         sd.type            = s["Type"].get<std::string>();
         r.series.tSeriesData.push_back(std::move(sd));
@@ -295,7 +303,6 @@ inline SeriesDataImp parseSeries(const std::string& raw) {
         ed.primaryImageId  = e["PrimaryImageId"].get<std::string>();
         ed.primaryImageTag = e["PrimaryImageTag"].get<std::string>();
         ed.imDbId          = e["ImdbId"].get<std::string>();
-        ed.theMovieDbId    = e["TheMovieDbId"].get<std::string>();
         ed.seriesId        = e["SeriesId"].get<std::string>();
         ed.seasonId        = e["SeasonId"].get<std::string>();
         ed.episodeId       = e["EpisodeId"].get<std::string>();
@@ -325,6 +332,7 @@ struct HomeVideoDataInc {
     std::string primaryImageTag;
     std::string folderId;
     std::string videoId;
+    std::string type;
 };
 
 struct HomeVideoData {
@@ -367,6 +375,7 @@ inline HomeVideosDataImp parseHomeVideos(const std::string& raw) {
         h.primaryImageTag = hv["PrimaryImageTag"].get<std::string>();
         h.folderId        = hv["FolderId"].get<std::string>();
         h.videoId         = hv["VideoId"].get<std::string>();
+        h.type            = hv["Type"].get<std::string>();
         r.homeVideos.tHomeVideoData.push_back(std::move(h));
     }
     // --- FolderData ---
@@ -400,6 +409,7 @@ struct MusicVideoDataInc {
     std::string theMovieDbId;
     std::string movieId;
     std::string folderId;
+    std::string type;
 };
 
 struct MusicVideoData {
@@ -444,6 +454,7 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
         m.theMovieDbId    = mv["TheMovieDbId"].get<std::string>();
         m.movieId         = mv["MovieId"].get<std::string>();
         m.folderId        = mv["FolderId"].get<std::string>();
+        m.type            = mv["Type"].get<std::string>();
         r.musicVideos.tMusicVideoData.push_back(std::move(m));
     }
     // --- FolderData ---

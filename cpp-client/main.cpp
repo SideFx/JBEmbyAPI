@@ -3,7 +3,7 @@
 // Purpose:     Demo console application for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-21
-// Last update: 2026-04-26
+// Last update: 2026-05-02
 /////////////////////////////////////////////////////////////////////////////
 
 #include <iostream>
@@ -92,7 +92,7 @@ int main(int argc, char* argv[]) {
                 // Movies: moviesImp.movies.tMovieData
                 // Folders: moviesImp.movies.tFolderData
                 for (auto& m : moviesImp.movies.tMovieData) {
-                    std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                    std::cout << m.name << " " << m.addedAt << " " << m.type << "\n";
                 }
                 for (auto& f : moviesImp.movies.tFolderData) {
                     std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
                 // Seasons: seriesImp.series.tSeasonData
                 // Episodes: seriesImp.series.tEpisodeData
                 for (auto& s : seriesImp.series.tSeriesData) {
-                    std::cout << s.name << " " << s.addedAt << "\n";
+                    std::cout << s.name << " " << s.addedAt << " " << s.type << "\n";
                 }
             } else {
                 std::cout << "Error: " << seriesImp.message << "\n";
@@ -124,7 +124,7 @@ int main(int argc, char* argv[]) {
                 // HomeVideos: homeVideosImp.homeVideos.tHomeVideoData
                 // Folders: homeVideosImp.homeVideos.tFolderData
                 for (auto& h : homeVideosImp.homeVideos.tHomeVideoData) {
-                    std::cout << h.name << " " << h.addedAt << " " << h.fileName << "\n";
+                    std::cout << h.name << " " << h.addedAt << " " << h.type << "\n";
                 }
                 for (auto& f : homeVideosImp.homeVideos.tFolderData) {
                     std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
@@ -141,7 +141,7 @@ int main(int argc, char* argv[]) {
                 // MusicVideos: musicVideosImp.musicVideos.tMusicVideoData
                 // Folders: musicVideosImp.musicVideos.tFolderData
                 for (auto& m : musicVideosImp.musicVideos.tMusicVideoData) {
-                    std::cout << m.name << " " << m.addedAt << " " << m.fileName << "\n";
+                    std::cout << m.name << " " << m.addedAt << " " << m.type << "\n";
                 }
                 for (auto& f : musicVideosImp.musicVideos.tFolderData) {
                     std::cout << "FOLDER: " << f.name << " " << f.folderId << "\n";
@@ -158,7 +158,7 @@ int main(int argc, char* argv[]) {
                 // Albums: musicImp.music.tAlbumData
                 // Titles: musicImp.music.tAudioData
                 for (auto& m : musicImp.music.tAlbumData) {
-                    std::cout << m.name << " " << m.addedAt << "\n";
+                    std::cout << m.name << " " << m.addedAt << " " << m.type << "\n";
                 }
             } else {
                 std::cout << "Error: " << musicImp.message << "\n";
