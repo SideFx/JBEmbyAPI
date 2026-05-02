@@ -106,7 +106,6 @@ struct MovieDataInc {
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string imDbId;
-    std::string theMovieDbId;
     std::string folderId;
     std::string movieId;
     std::string type;
