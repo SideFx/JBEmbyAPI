@@ -281,6 +281,7 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			video.Name = item.Name
 			video.ProductionYear = item.ProductionYear
 			video.Genres = evalNameLongIdPairs(item.GenreItems)
+			video.Overview = item.Overview
 			video.Container = item.Container
 			video.Width = item.Width
 			video.Height = item.Height
