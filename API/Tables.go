@@ -171,6 +171,7 @@ type MusicVideoDataInc struct {
 	Name            string   `json:"Name"`
 	ProductionYear  int32    `json:"ProductionYear"`
 	Runtime         int64    `json:"Runtime"`
+	Artists         []string `json:"Artists"`
 	Genres          []string `json:"Genres"`
 	Overview        string   `json:"Overview"`
 	Container       string   `json:"Container"`
@@ -200,7 +201,8 @@ var MusicVideoTable = DataDescription[MusicVideoData]{
 	CollectionMusicVideos,
 	[]string{MusicVideoType, FolderType},
 	[]string{"Name", "MediaSources", "FileName", "Genres", "ProductionYear", "DateCreated",
-		"Width", "Height", "Container", "Overview", "RunTimeTicks", "Id", "ParentId", "Type", "ProviderIds"},
+		"People", "Width", "Height", "Container", "Overview", "RunTimeTicks", "Id", "ParentId", "Type",
+		"ProviderIds"},
 	MusicVideoData{},
 }
 

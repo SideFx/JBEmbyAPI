@@ -391,6 +391,7 @@ struct MusicVideoDataInc {
     std::string name;
     int32_t productionYear = 0;
     int64_t runtime = 0;
+    std::vector<std::string> artists;
     std::vector<std::string> genres;
     std::string overview;
     std::string container;
@@ -436,6 +437,7 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
         m.name            = mv["Name"].get<std::string>();
         m.productionYear  = mv["ProductionYear"].get<int32_t>();
         m.runtime         = mv["Runtime"].get<int64_t>();
+        m.artists         = mv["Artists"].get<std::vector<std::string>>();
         m.genres          = mv["Genres"].get<std::vector<std::string>>();
         m.overview        = mv["Overview"].get<std::string>();
         m.container       = mv["Container"].get<std::string>();
