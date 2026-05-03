@@ -3,7 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-05-02
+// Last update: 2026-05-03
 /////////////////////////////////////////////////////////////////////////////
 
 package API
