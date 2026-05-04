@@ -63,3 +63,5 @@ creating the C++ JSON parser functions, and producing the template for loading t
 **2026-05-02:**
 - Minor fixes (return "Type" for Movies, HomeVideos and MusicVideos)
 
+**2026-05-04:**
+- Added DiscNumber for audio tracks

@@ -3,7 +3,7 @@
 // Purpose:     Data types for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-05-03
+// Last update: 2026-05-04
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -225,6 +225,7 @@ type AlbumDataInc struct {
 type AudioDataInc struct {
 	Name            string   `json:"Name"`
 	ProductionYear  int32    `json:"ProductionYear"`
+	DiscNumber      int32    `json:"DiscNumber"`
 	TrackNumber     int32    `json:"TrackNumber"`
 	Album           string   `json:"Album"`
 	AlbumArtist     string   `json:"AlbumArtist"`

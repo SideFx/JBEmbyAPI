@@ -3,7 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-05-03
+// Last update: 2026-05-04
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -348,6 +348,7 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 			audio.Bitrate = item.Bitrate
 			audio.AudioCodec, _ = evalCodecs(item.MediaSources)
 			audio.TrackNumber = item.IndexNumber
+			audio.DiscNumber = item.ParentIndexNumber
 			audio.Runtime = item.RunTimeTicks
 			audio.MediaType = item.MediaType
 			audio.AddedAt = item.DateCreated.Unix()

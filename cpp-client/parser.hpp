@@ -3,7 +3,7 @@
 // Purpose:     Json parser and data definitions
 // Author:      Jan Buchholz (let Copilot generate the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-03
+// Last update: 2026-05-04
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -488,6 +488,7 @@ struct AlbumDataInc {
 struct AudioDataInc {
     std::string name;
     int32_t productionYear = 0;
+    int32_t discNumber = 0;
     int32_t trackNumber = 0;
     std::string album;
     std::string albumArtist;
@@ -551,6 +552,7 @@ inline MusicDataImp parseMusic(const std::string& raw) {
         AudioDataInc ad;
         ad.name            = au["Name"].get<std::string>();
         ad.productionYear  = au["ProductionYear"].get<int32_t>();
+        ad.discNumber      = au["DiscNumber"].get<int32_t>();
         ad.trackNumber     = au["TrackNumber"].get<int32_t>();
         ad.album           = au["Album"].get<std::string>();
         ad.albumArtist     = au["AlbumArtist"].get<std::string>();
