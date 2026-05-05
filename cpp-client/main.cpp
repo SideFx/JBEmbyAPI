@@ -8,7 +8,7 @@
 
 #include <iostream>
 #include <unordered_map>
-#include "parser.hpp"
+#include "jbparser.hpp"
 #include "jbgolib.hpp"
 
 // Command line parser

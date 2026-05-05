@@ -4,7 +4,7 @@ project(EmbyAPIDemo)
 set(CMAKE_CXX_STANDARD 20)
 
 # C++ Executable
-add_executable(EmbyAPIDemo main.cpp jbgolib.hpp parser.hpp json.hpp)
+add_executable(EmbyAPIDemo main.cpp jbgolib.hpp jbparser.hpp json.hpp)
 # Copy dll
 add_custom_command(TARGET EmbyAPIDemo POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
