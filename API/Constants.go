@@ -3,7 +3,7 @@
 // Purpose:     Constants for JBEmbyAPI (REST API)
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-04-26
+// Last update: 2026-05-10
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -84,7 +84,6 @@ const (
 )
 
 const (
-	TheMovieDb       = "Tmdb"
 	ImDb             = "IMDB"
 	MusicBrainzAlbum = "MusicBrainzAlbum"
 )
