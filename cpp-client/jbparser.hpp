@@ -3,7 +3,7 @@
 // Purpose:     Json parser and data definitions
 // Author:      Jan Buchholz (let Copilot generate the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-04
+// Last update: 2026-05-10
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -405,8 +405,6 @@ struct MusicVideoDataInc {
     int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
-    std::string imDbId;
-    std::string theMovieDbId;
     std::string movieId;
     std::string folderId;
     std::string type;
@@ -451,8 +449,6 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
         m.addedAt         = mv["AddedAt"].get<int64_t>();
         m.primaryImageId  = mv["PrimaryImageId"].get<std::string>();
         m.primaryImageTag = mv["PrimaryImageTag"].get<std::string>();
-        m.imDbId          = mv["ImdbId"].get<std::string>();
-        m.theMovieDbId    = mv["TheMovieDbId"].get<std::string>();
         m.movieId         = mv["MovieId"].get<std::string>();
         m.folderId        = mv["FolderId"].get<std::string>();
         m.type            = mv["Type"].get<std::string>();
@@ -478,7 +474,6 @@ struct AlbumDataInc {
     std::vector<std::string> genres;
     int64_t addedAt = 0;
     std::string albumId;
-    std::string albumArtistId;
     std::string primaryImageId;
     std::string primaryImageTag;
     std::string musicBrainzId;
@@ -505,7 +500,6 @@ struct AudioDataInc {
     std::string primaryImageTag;
     std::string audioId;
     std::string albumId;
-    std::string albumArtistId;
     std::string mediaType;
     std::string type;
 };
@@ -540,7 +534,6 @@ inline MusicDataImp parseMusic(const std::string& raw) {
         ad.genres          = a["Genres"].get<std::vector<std::string>>();
         ad.addedAt         = a["AddedAt"].get<int64_t>();
         ad.albumId         = a["AlbumId"].get<std::string>();
-        ad.albumArtistId   = a["ArtistId"].get<std::string>();
         ad.primaryImageId  = a["PrimaryImageId"].get<std::string>();
         ad.primaryImageTag = a["PrimaryImageTag"].get<std::string>();
         ad.musicBrainzId   = a["MusicBrainzId"].get<std::string>();
@@ -569,7 +562,6 @@ inline MusicDataImp parseMusic(const std::string& raw) {
         ad.primaryImageTag = au["PrimaryImageTag"].get<std::string>();
         ad.audioId         = au["AudioId"].get<std::string>();
         ad.albumId         = au["AlbumId"].get<std::string>();
-        ad.albumArtistId   = au["ArtistId"].get<std::string>();
         ad.mediaType       = au["MediaType"].get<std::string>();
         ad.type            = au["Type"].get<std::string>();
         r.music.tAudioData.push_back(std::move(ad));

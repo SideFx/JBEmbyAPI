@@ -3,7 +3,7 @@
 // Purpose:     Data types for JBEmbyAPI
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-05-04
+// Last update: 2026-05-10
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -185,8 +185,6 @@ type MusicVideoDataInc struct {
 	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
-	ImDBId          string   `json:"ImdbId"`
-	TheMovieDBId    string   `json:"TheMovieDbId"`
 	MovieId         string   `json:"MovieId"`
 	FolderId        string   `json:"FolderId"`
 	Type            string   `json:"Type"`
@@ -215,7 +213,6 @@ type AlbumDataInc struct {
 	Genres          []string `json:"Genres"`
 	AddedAt         int64    `json:"AddedAt"`
 	AlbumId         string   `json:"AlbumId"`
-	AlbumArtistId   string   `json:"ArtistId"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	MusicBrainzId   string   `json:"MusicBrainzId"`
@@ -242,7 +239,6 @@ type AudioDataInc struct {
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
 	AudioId         string   `json:"AudioId"`
 	AlbumId         string   `json:"AlbumId"`
-	AlbumArtistId   string   `json:"ArtistId"`
 	MediaType       string   `json:"MediaType"`
 	Type            string   `json:"Type"`
 }

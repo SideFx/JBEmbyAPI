@@ -3,7 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-05-04
+// Last update: 2026-05-10
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -300,8 +300,6 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			if video.PrimaryImageTag == "" {
 				video.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
-			video.ImDBId = item.ProviderIds[ImDb]
-			video.TheMovieDBId = item.ProviderIds[TheMovieDb]
 			video.FolderId = item.ParentId
 			video.Type = item.Type
 			MusicVideoTable.Data.TMusicVideoData = append(MusicVideoTable.Data.TMusicVideoData, video)
@@ -338,10 +336,9 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 			audio.Genres = evalNameLongIdPairs(item.GenreItems)
 			audio.Container = item.Container
 			audio.Album = item.Album
-			audio.AlbumArtist, audio.AlbumArtistId = evalAlbumArtists(item.AlbumArtists)
-			if audio.AlbumArtistId == "" {
-				audio.AlbumArtist = item.AlbumArtist
-				audio.AlbumArtistId = ""
+			audio.AlbumArtist = item.AlbumArtist
+			if audio.AlbumArtist == "" {
+				audio.AlbumArtist, _ = evalAlbumArtists(item.AlbumArtists)
 			}
 			audio.FileSize = item.Size
 			audio.FileName = item.FileName
@@ -372,10 +369,9 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 			album.Artists = evalNameIdPairs(item.ArtistItems)
 			album.Genres = evalNameLongIdPairs(item.GenreItems)
 			album.AlbumId = item.Id
-			album.AlbumArtist, album.AlbumArtistId = evalAlbumArtists(item.AlbumArtists)
-			if album.AlbumArtistId == "" {
-				album.AlbumArtist = item.AlbumArtist
-				album.AlbumArtistId = ""
+			album.AlbumArtist = item.AlbumArtist
+			if album.AlbumArtist == "" {
+				album.AlbumArtist, _ = evalAlbumArtists(item.AlbumArtists)
 			}
 			album.Genres = evalNameLongIdPairs(item.GenreItems)
 			album.Runtime = item.RunTimeTicks
