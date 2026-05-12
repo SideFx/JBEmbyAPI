@@ -248,6 +248,7 @@ func UserGetHomeVideos(baseurl string, collectionid string, userid string, acces
 				video.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
 			video.AddedAt = item.DateCreated.Unix()
+			video.VideoId = item.Id
 			video.FolderId = item.ParentId
 			video.Type = item.Type
 			HomeVideoTable.Data.THomeVideoData = append(HomeVideoTable.Data.THomeVideoData, video)
