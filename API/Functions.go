@@ -300,6 +300,7 @@ func UserGetMusicVideos(baseurl string, collectionid string, userid string, acce
 			if video.PrimaryImageTag == "" {
 				video.PrimaryImageTag = item.ImageTags[PrimaryImage]
 			}
+			video.VideoId = item.Id
 			video.FolderId = item.ParentId
 			video.Type = item.Type
 			MusicVideoTable.Data.TMusicVideoData = append(MusicVideoTable.Data.TMusicVideoData, video)

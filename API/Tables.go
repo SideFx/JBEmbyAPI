@@ -185,7 +185,7 @@ type MusicVideoDataInc struct {
 	AddedAt         int64    `json:"AddedAt"`
 	PrimaryImageId  string   `json:"PrimaryImageId"`
 	PrimaryImageTag string   `json:"PrimaryImageTag"`
-	MovieId         string   `json:"MovieId"`
+	VideoId         string   `json:"VideoId"`
 	FolderId        string   `json:"FolderId"`
 	Type            string   `json:"Type"`
 }

@@ -3,7 +3,7 @@
 // Purpose:     Json parser and data definitions
 // Author:      Jan Buchholz (let Copilot generate the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-10
+// Last update: 2026-05-12
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -409,7 +409,7 @@ struct MusicVideoDataInc {
     int64_t addedAt = 0;
     std::string primaryImageId;
     std::string primaryImageTag;
-    std::string movieId;
+    std::string videoId;
     std::string folderId;
     std::string type;
 };
@@ -453,7 +453,7 @@ inline MusicVideosDataImp parseMusicVideos(const std::string& raw) {
         m.addedAt         = mv["AddedAt"].get<int64_t>();
         m.primaryImageId  = mv["PrimaryImageId"].get<std::string>();
         m.primaryImageTag = mv["PrimaryImageTag"].get<std::string>();
-        m.movieId         = mv["MovieId"].get<std::string>();
+        m.videoId         = mv["VideoId"].get<std::string>();
         m.folderId        = mv["FolderId"].get<std::string>();
         m.type            = mv["Type"].get<std::string>();
         r.musicVideos.tMusicVideoData.push_back(std::move(m));
