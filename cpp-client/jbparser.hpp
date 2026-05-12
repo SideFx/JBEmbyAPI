@@ -28,6 +28,10 @@ constexpr std::string_view AudioType      = "Audio";
 constexpr std::string_view MusicVideoType = "MusicVideo";
 constexpr std::string_view MusicAlbumType = "MusicAlbum";
 
+constexpr std::string_view ActorPersonType = "Actor";
+constexpr std::string_view DirectorPersonType = "Director";
+constexpr std::string_view ArtistPersonType = "Artist";
+
 struct EmbyLogonResult {
     std::string baseUrl;
     std::string userId;
