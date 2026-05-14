@@ -17,6 +17,7 @@ import (
 	"os"
 	"runtime"
 	"sort"
+	"strconv"
 	"strings"
 )
 
@@ -158,7 +159,9 @@ func (p *rESTParams[T]) genericHttpGet() {
 	}
 	defer func() { _ = p.response.Body.Close() }()
 	if p.response.StatusCode != http.StatusOK {
-		p.error = HttpStatusError
+		e := HttpStatusError
+		e.Message = strings.Replace(e.Message, "&1", strconv.Itoa(p.response.StatusCode), -1)
+		p.error = e
 		return
 	}
 	p.body, err = io.ReadAll(p.response.Body)

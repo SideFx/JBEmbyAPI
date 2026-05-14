@@ -420,7 +420,9 @@ func GetPrimaryImageForItem(baseurl string, itemid string, format string, imaget
 		return ItemImageExp{itemid, nil, HttpGetFailed}
 	}
 	if response.StatusCode != http.StatusOK {
-		return ItemImageExp{itemid, nil, HttpStatusError}
+		e := HttpStatusError
+		e.Message = strings.Replace(e.Message, "&1", strconv.Itoa(response.StatusCode), -1)
+		return ItemImageExp{itemid, nil, e}
 	}
 	img.ImageData, err = io.ReadAll(response.Body)
 	if err != nil {

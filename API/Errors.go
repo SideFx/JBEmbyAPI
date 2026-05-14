@@ -2,7 +2,7 @@
 // Name:        Errors.go
 // Purpose:     Error definitions (code & message)
 // Author:      Jan Buchholz
-// Created:     2026-04-13
+// Created:     2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -15,7 +15,7 @@ var (
 	MissingPort         = ErrorStruct{2, "Missing port."}
 	HttpGetFailed       = ErrorStruct{3, "HTTP GET failed."}
 	HttpPostFailed      = ErrorStruct{4, "HTTP POST failed."}
-	HttpStatusError     = ErrorStruct{5, "HTTP status error."}
+	HttpStatusError     = ErrorStruct{5, "HTTP status error &1."}
 	IoError             = ErrorStruct{6, "I/O error."}
 	JsonError           = ErrorStruct{7, "JSON error."}
 	UserNotFound        = ErrorStruct{8, "User not found."}
