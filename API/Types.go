@@ -35,8 +35,9 @@ type EmbySession struct {
 	AccessToken string `json:"AccessToken"`
 }
 type EmbyLogonResultExp struct {
-	Session EmbySession `json:"Session"`
-	Result  ErrorStruct `json:"Result"`
+	APIVersion string      `json:"ApiVersion"`
+	Session    EmbySession `json:"Session"`
+	Result     ErrorStruct `json:"Result"`
 }
 
 type UserView struct {

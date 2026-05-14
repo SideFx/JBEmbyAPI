@@ -3,7 +3,7 @@
 // Purpose:     Json parser and data definitions
 // Author:      Jan Buchholz (let Copilot generate the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-12
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -36,6 +36,7 @@ struct EmbyLogonResult {
     std::string baseUrl;
     std::string userId;
     std::string accessToken;
+    std::string apiVersion;
     int code = -1;
     std::string message;
 };
@@ -43,6 +44,7 @@ struct EmbyLogonResult {
 inline EmbyLogonResult parseLogonResult(const std::string& raw) {
     json j = json::parse(raw);
     EmbyLogonResult r;
+    r.apiVersion = j["Result"]["APIVersion"].get<std::string>();
     r.code = j["Result"]["Code"].get<int>();
     r.message = j["Result"]["Message"].get<std::string>();
     if (r.code == 0) {

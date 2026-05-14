@@ -3,7 +3,7 @@
 // Purpose:     Exported functions
 // Author:      Jan Buchholz
 // Created:     2026-04-15
-// Last update: 2026-05-10
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 package API
@@ -22,6 +22,7 @@ func UserLoginToServer(secure bool, hostname string, port string, username strin
 	url := createBasicURL(secure, hostname, port)
 	result.Session.BaseUrl = url.BaseUrl
 	result.Result = url.Result
+	result.APIVersion = API_VERSION
 	if url.Result.Code != NoErrorConst {
 		return result
 	}

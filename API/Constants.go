@@ -3,10 +3,12 @@
 // Purpose:     Constants for JBEmbyAPI (REST API)
 // Author:      Jan Buchholz
 // Created:     2026-04-13
-// Last update: 2026-05-10
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 package API
+
+const API_VERSION = "1.1.0"
 
 // Protocols
 const (
