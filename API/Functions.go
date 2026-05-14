@@ -22,7 +22,7 @@ func UserLoginToServer(secure bool, hostname string, port string, username strin
 	url := createBasicURL(secure, hostname, port)
 	result.Session.BaseUrl = url.BaseUrl
 	result.Result = url.Result
-	result.APIVersion = API_VERSION
+	result.APIVersion = ApiVersion
 	if url.Result.Code != NoErrorConst {
 		return result
 	}
@@ -397,7 +397,7 @@ func UserGetMusic(baseurl string, collectionid string, userid string, accesstoke
 }
 
 func GetPrimaryImageForItem(baseurl string, itemid string, format string, imagetag string,
-	maxwidth int, maxheight int, accesstoken string) ItemImageExp {
+	maxwidth int, maxheight int, accesstoken string, export bool) ItemImageExp {
 	img := ItemImageExp{}
 	url := baseurl + getPrimaryImage
 	url = strings.Replace(url, "&1", itemid, 1)
@@ -410,6 +410,10 @@ func GetPrimaryImageForItem(baseurl string, itemid string, format string, imaget
 	}
 	if maxheight > 0 {
 		url += "&" + paraMaxHeight + strconv.Itoa(maxheight)
+	}
+	if export == true {
+		url += "&" + paraImageQuality
+		url += "&" + paraNoEnhancers
 	}
 	if imagetag != "" {
 		url += "&" + paraImageTag + imagetag

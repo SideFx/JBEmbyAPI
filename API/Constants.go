@@ -8,7 +8,7 @@
 
 package API
 
-const API_VERSION = "1.1.0"
+const ApiVersion = "1.1.0"
 
 // Protocols
 const (
@@ -31,6 +31,8 @@ const (
 	paraFormat           = "format="
 	paraMaxWidth         = "MaxWidth="
 	paraMaxHeight        = "MaxHeight="
+	paraImageQuality     = "quality=90"
+	paraNoEnhancers      = "enableImageEnhancers=false"
 	paraImageTag         = "tag="
 	paraApiKey           = "api_key="
 )

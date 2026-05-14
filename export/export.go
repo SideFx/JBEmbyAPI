@@ -3,7 +3,7 @@
 // Purpose:     cgo export functions
 // Author:      Jan Buchholz
 // Created:     2026-04-16
-// Last update: 2026-04-26
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 package main
@@ -97,7 +97,7 @@ func UserGetMusic(baseurl *C.char, collectionid *C.char, userid *C.char, accesst
 
 //export GetPrimaryImageForItem
 func GetPrimaryImageForItem(baseurl *C.char, itemid *C.char, imageformat *C.char, imagetag *C.char,
-	maxwidth C.int, maxheight C.int, accesstoken *C.char) *C.char {
+	maxwidth C.int, maxheight C.int, accesstoken *C.char, export C.bool) *C.char {
 	gBaseUrl := C.GoString(baseurl)
 	gItemId := C.GoString(itemid)
 	gImageFormat := C.GoString(imageformat)
@@ -105,7 +105,9 @@ func GetPrimaryImageForItem(baseurl *C.char, itemid *C.char, imageformat *C.char
 	gMaxWidth := int(maxwidth)
 	gMaxHeight := int(maxheight)
 	gAccessToken := C.GoString(accesstoken)
-	result := API.GetPrimaryImageForItem(gBaseUrl, gItemId, gImageFormat, gImageTag, gMaxWidth, gMaxHeight, gAccessToken)
+	gExport := bool(export)
+	result := API.GetPrimaryImageForItem(gBaseUrl, gItemId, gImageFormat, gImageTag,
+		gMaxWidth, gMaxHeight, gAccessToken, gExport)
 	return C.CString(jsonReturnResult(result))
 }
 

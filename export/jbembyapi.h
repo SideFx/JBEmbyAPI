@@ -96,7 +96,7 @@ extern char* UserGetSeries(char* baseurl, char* collectionid, char* userid, char
 extern char* UserGetHomeVideos(char* baseurl, char* collectionid, char* userid, char* accesstoken);
 extern char* UserGetMusicVideos(char* baseurl, char* collectionid, char* userid, char* accesstoken);
 extern char* UserGetMusic(char* baseurl, char* collectionid, char* userid, char* accesstoken);
-extern char* GetPrimaryImageForItem(char* baseurl, char* itemid, char* imageformat, char* imagetag, int maxwidth, int maxheight, char* accesstoken);
+extern char* GetPrimaryImageForItem(char* baseurl, char* itemid, char* imageformat, char* imagetag, int maxwidth, int maxheight, char* accesstoken, _Bool export);
 extern void FreeString(char* str);
 
 #ifdef __cplusplus

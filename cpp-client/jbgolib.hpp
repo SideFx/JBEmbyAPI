@@ -3,7 +3,7 @@
 // Purpose:     C++ function import (load library)
 // Author:      Jan Buchholz
 // Created:     2026-04-20
-// Last update: 2026-04-27
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -42,7 +42,7 @@ public:
     using UserGetHomeVideosFunc = char* (*)(char*, char*, char*, char*);
     using UserGetMusicVideosFunc = char* (*)(char*, char*, char*, char*);
     using UserGetMusicFunc = char* (*)(char*, char*, char*, char*);
-    using GetPrimaryImageForItemFunc = char* (*)(char*, char*, char*, char*, int, int, char*);
+    using GetPrimaryImageForItemFunc = char* (*)(char*, char*, char*, char*, int, int, char*, bool);
     using FreeStringFunc = void (*)(char*);
     GoLib() = default;
     ~GoLib() = default; //Go shared libraries should not be unloaded
@@ -227,7 +227,7 @@ public:
     }
     [[nodiscard]] std::string GetPrimaryImageForItem(const std::string& baseurl, const std::string& itemid,
         const std::string& format, const std::string& imagetag, int maxwidth, int maxheight,
-        const std::string& accesstoken) const {
+        const std::string& accesstoken, bool exp) const {
         if (!getPrimaryImageForItem) return {};
         char* raw = getPrimaryImageForItem(
             const_cast<char*>(baseurl.c_str()),
@@ -236,7 +236,8 @@ public:
             const_cast<char*>(imagetag.c_str()),
             maxwidth,
             maxheight,
-            const_cast<char*>(accesstoken.c_str())
+            const_cast<char*>(accesstoken.c_str()),
+            exp
         );
         if (!raw) return {};
         std::string result(raw);

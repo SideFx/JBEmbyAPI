@@ -3,7 +3,7 @@
 // Purpose:     Private functions
 // Author:      Jan Buchholz
 // Created:     2025-04-15
-// Last update: 2026-05-01
+// Last update: 2026-05-14
 /////////////////////////////////////////////////////////////////////////////
 
 package API
