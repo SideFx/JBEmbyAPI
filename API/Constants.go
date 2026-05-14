@@ -28,12 +28,12 @@ const (
 	paraRecursive        = "Recursive="
 	paraIncludeItemTypes = "IncludeItemTypes="
 	paraFields           = "Fields="
-	paraFormat           = "format="
+	paraFormat           = "Format="
 	paraMaxWidth         = "MaxWidth="
 	paraMaxHeight        = "MaxHeight="
-	paraImageQuality     = "quality=90"
-	paraNoEnhancers      = "enableImageEnhancers=false"
-	paraImageTag         = "tag="
+	paraImageQuality     = "Quality=90"
+	paraNoEnhancers      = "EnableImageEnhancers=false"
+	paraImageTag         = "Tag="
 	paraApiKey           = "api_key="
 )
 
