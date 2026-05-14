@@ -44,7 +44,7 @@ struct EmbyLogonResult {
 inline EmbyLogonResult parseLogonResult(const std::string& raw) {
     json j = json::parse(raw);
     EmbyLogonResult r;
-    r.apiVersion = j["Result"]["APIVersion"].get<std::string>();
+    r.apiVersion = j["Result"]["ApiVersion"].get<std::string>();
     r.code = j["Result"]["Code"].get<int>();
     r.message = j["Result"]["Message"].get<std::string>();
     if (r.code == 0) {
