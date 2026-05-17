@@ -32,6 +32,8 @@ constexpr std::string_view ActorPersonType = "Actor";
 constexpr std::string_view DirectorPersonType = "Director";
 constexpr std::string_view ArtistPersonType = "Artist";
 
+constexpr std::string_view MediaTypeAudio = "Audio";
+
 struct EmbyLogonResult {
     std::string baseUrl;
     std::string userId;
