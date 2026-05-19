@@ -65,3 +65,6 @@ creating the C++ JSON parser functions, and producing the template for loading t
 
 **2026-05-04:**
 - Added DiscNumber for audio tracks
+
+**2026-05-19:**
+- fixed library path for macOS

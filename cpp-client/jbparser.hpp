@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        jbparser.hpp
 // Purpose:     Json parser and data definitions
-// Author:      Jan Buchholz (let Copilot generate the json stuff)
+// Author:      Jan Buchholz (Copilot generated the json stuff)
 // Created:     2026-04-24
-// Last update: 2026-05-14
+// Last update: 2026-05-17
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
